@@ -1,0 +1,1564 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyan Shala</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        /* ============================================================
+           DESIGN TOKENS
+        ============================================================ */
+        :root {
+            --primary: rgb(0, 175, 239);
+            --primary-dark: rgb(0, 145, 200);
+            --primary-light: rgba(0, 175, 239, 0.08);
+            --primary-mid: rgba(0, 175, 239, 0.18);
+            --text-dark: #1a2332;
+            --text-mid: #4a5568;
+            --text-muted: #718096;
+            --surface: #ffffff;
+            --surface-2: #f8fafc;
+            --border: rgba(0,0,0,0.08);
+            --border-hover: rgba(0, 175, 239, 0.35);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
+            --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ============================================================
+           SCROLL PROGRESS BAR
+        ============================================================ */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--primary);
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
+
+        /* ============================================================
+           BODY & GLOBALS
+        ============================================================ */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background: var(--surface-2);
+        }
+
+        main { display: block; height: auto; }
+
+        section, .section-block {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            margin: 1.5rem auto;
+            max-width: 1200px;
+            padding: 3rem 3.5rem;
+        }
+
+        @media (max-width: 768px) {
+            section, .section-block { padding: 2rem 1.25rem; margin: 1rem 0.75rem; }
+        }
+
+        /* ============================================================
+           HERO CAROUSEL
+        ============================================================ */
+        #img-carousel {
+            width: 100%;
+            position: relative;
+            display: block;
+        }
+
+        #img-carousel .carousel-item img {
+            width: 100%;
+            height: 92vh;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Gradient fade at bottom */
+        #img-carousel::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 180px;
+            background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* FROSTED GLASS overlay panel */
+        .carousel-welcome-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px) saturate(1.4);
+            -webkit-backdrop-filter: blur(12px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem 3.5rem;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+            animation: heroFadeIn 0.8s ease both;
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-glass-panel h1 {
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .hero-glass-panel p {
+            color: rgba(255,255,255,0.88);
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            max-width: 540px;
+            margin: 0 auto 1.75rem;
+            line-height: 1.7;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0,175,239,0.35);
+            border: 1px solid rgba(0,175,239,0.6);
+            color: #e0f6ff;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            padding: 4px 14px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+        .btn-hero-primary {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+            box-shadow: 0 4px 16px rgba(0,175,239,0.4);
+        }
+        .btn-hero-primary:hover {
+            background: var(--primary-dark);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,175,239,0.45);
+        }
+
+        .btn-hero-outline {
+            background: transparent;
+            color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.55);
+            border-radius: 50px;
+            padding: 12px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background var(--transition), border-color var(--transition), transform var(--transition);
+        }
+        .btn-hero-outline:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.9);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Carousel controls */
+        #img-carousel .carousel-control-prev,
+        #img-carousel .carousel-control-next {
+            width: 48px; height: 48px;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 50%;
+            opacity: 0.85;
+            transition: all var(--transition);
+            backdrop-filter: blur(6px);
+        }
+        #img-carousel .carousel-control-prev { left: 20px; }
+        #img-carousel .carousel-control-next { right: 20px; }
+        #img-carousel .carousel-control-prev:hover,
+        #img-carousel .carousel-control-next:hover {
+            opacity: 1;
+            background: rgba(255,255,255,0.28);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        @media (max-width: 768px) {
+            #img-carousel .carousel-item img {
+                height: auto !important;
+                min-height: 200px;
+                object-fit: cover;
+            }
+            .hero-glass-panel { padding: 1.5rem 1.25rem; }
+            .hero-glass-panel p { display: none; }
+            .btn-hero-primary, .btn-hero-outline { padding: 9px 18px; font-size: 13px; }
+            #img-carousel .carousel-control-prev,
+            #img-carousel .carousel-control-next { display: none; }
+        }
+
+        /* ============================================================
+           WELCOME STRIP
+        ============================================================ */
+        #welcome {
+            text-align: center;
+            padding: 3rem;
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+        }
+
+        #welcome h1 {
+            font-size: clamp(1.5rem, 3vw, 2.1rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        #welcome p {
+            color: var(--text-mid);
+            font-size: 1.05rem;
+            max-width: 760px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ============================================================
+           IMPACT BAR — White card version with colored numbers
+        ============================================================ */
+        #impact-bar {
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: 2rem 2.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-item {
+            position: relative;
+            padding: 1.25rem 1rem;
+            border-radius: var(--radius-md);
+            transition: background var(--transition), transform var(--transition);
+            cursor: default;
+        }
+
+        .stat-item:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .stat-item h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            line-height: 1;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 40px; height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: transform var(--transition);
+        }
+
+        .stat-item:hover::after { transform: translateX(-50%) scaleX(1); }
+
+        /* Dividers between stats */
+        .stat-item + .stat-item {
+            border-left: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .stat-item + .stat-item { border-left: none; border-top: 1px solid var(--border); }
+        }
+
+        /* ============================================================
+           ROOTS SECTION
+        ============================================================ */
+        #roots .root-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        #roots .root-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        #roots .root-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition);
+        }
+
+        #roots .root-card:hover::before { transform: scaleX(1); }
+
+        #roots .root-card-icon {
+            width: 48px; height: 48px;
+            background: var(--primary-light);
+            border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        #roots .root-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 0.5rem; }
+        #roots .root-card p { color: var(--text-mid); font-size: 14px; line-height: 1.8; margin: 0; }
+
+        /* ============================================================
+           VISION / MISSION / GOAL CARDS
+        ============================================================ */
+        .vm-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        .vm-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--vm-accent, var(--primary));
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.35s ease;
+        }
+
+        .vm-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--vm-accent, var(--primary));
+        }
+
+        .vm-card:hover::after { transform: scaleX(1); }
+
+        .vm-card.vision  { --vm-accent: var(--primary); }
+        .vm-card.mission { --vm-accent: #22c55e; }
+        .vm-card.goal    { --vm-accent: #f59e0b; }
+
+        .icon-circle {
+            width: 64px; height: 64px;
+            border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-size: 28px;
+            transition: transform var(--transition), background var(--transition);
+        }
+
+        .vm-card:hover .icon-circle { transform: scale(1.1) rotate(-3deg); }
+
+        .bg-soft-primary { background: rgba(0, 175, 239, 0.1); color: var(--primary); }
+        .bg-soft-success { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
+        .bg-soft-warning { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+
+        .vm-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 0.75rem; }
+        .vm-card p  { font-size: 14px; color: var(--text-mid); line-height: 1.75; margin: 0; }
+
+        /* Values strip */
+        .values-section {
+            background: var(--surface-2);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+
+        .value-item {
+            padding: 1rem 0.75rem;
+            border-radius: var(--radius-md);
+            transition: background var(--transition), transform var(--transition);
+            cursor: default;
+        }
+
+        .value-item:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .value-item .bi { font-size: 24px; display: block; margin-bottom: 8px; }
+        .value-item p { font-size: 13px; font-weight: 600; color: var(--text-mid); margin: 0; }
+
+        /* ============================================================
+           IMPACT STORIES CAROUSEL
+        ============================================================ */
+        .impact-slider-container {
+            padding: 2.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .impact-slide-image {
+            width: 100%;
+            max-width: 360px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition);
+        }
+
+        .carousel-item:hover .impact-slide-image {
+            transform: scale(1.02);
+        }
+
+        .impact-slide-content {
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .impact-slide-content h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .impact-slide-content p {
+            color: var(--text-mid);
+            font-size: 15px;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .read-more-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: gap var(--transition);
+        }
+
+        .read-more-link:hover { gap: 10px; color: var(--primary-dark); }
+
+        /* Story number badge */
+        .story-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 72px;
+            font-weight: 700;
+            color: rgba(0,175,239,0.06);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Impact carousel controls */
+        #impact .carousel-control-prev,
+        #impact .carousel-control-next {
+            width: 44px; height: 44px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            top: 50%; transform: translateY(-50%);
+            transition: all var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        #impact .carousel-control-prev { left: -15px; }
+        #impact .carousel-control-next { right: -15px; }
+
+        #impact .carousel-control-prev:hover,
+        #impact .carousel-control-next:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        #impact .carousel-control-prev-icon,
+        #impact .carousel-control-next-icon {
+            filter: invert(1) brightness(0);
+            width: 18px; height: 18px;
+        }
+
+        #impact .carousel-control-prev:hover .carousel-control-prev-icon,
+        #impact .carousel-control-next:hover .carousel-control-next-icon {
+            filter: invert(1) brightness(10);
+        }
+
+        .impact-slider-container .carousel-indicators { bottom: 12px; }
+
+        .impact-slider-container .carousel-indicators button {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            border: none;
+            margin: 0 4px;
+            transition: all 0.3s ease;
+        }
+
+        .impact-slider-container .carousel-indicators .active {
+            background-color: var(--primary);
+            transform: scale(1.3);
+        }
+
+        @media (max-width: 991px) {
+            .impact-slider-container { padding: 1.5rem 1rem; }
+            .impact-slide-image { height: 220px; margin-bottom: 1.25rem; }
+            .impact-slide-content { padding: 0 0.5rem; text-align: center; }
+        }
+
+        /* ============================================================
+           GET INVOLVED
+        ============================================================ */
+        .involved-grid-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            height: 100%;
+        }
+
+        .involved-grid-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-hover);
+        }
+
+        .involved-grid-icon-box {
+            width: 52px; height: 52px; min-width: 52px;
+            background: var(--primary-light);
+            border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            color: var(--primary);
+            transition: background var(--transition), color var(--transition), transform var(--transition);
+        }
+
+        .involved-grid-item:hover .involved-grid-icon-box {
+            background: var(--primary);
+            color: #fff;
+            transform: scale(1.05) rotate(-4deg);
+        }
+
+        .involved-grid-content h5 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .involved-grid-content p {
+            color: var(--text-mid);
+            font-size: 13.5px;
+            line-height: 1.65;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn-sm.btn-outline-primary {
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 18px;
+            transition: background var(--transition), color var(--transition), transform var(--transition);
+        }
+
+        .btn-sm.btn-outline-primary:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* ============================================================
+           DONORS SLIDER
+        ============================================================ */
+        .logo-slider {
+            overflow: hidden;
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .logo-slider::before,
+        .logo-slider::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 80px;
+            z-index: 2;
+        }
+
+        .logo-slider::before {
+            left: 0;
+            background: linear-gradient(to right, var(--surface), transparent);
+        }
+
+        .logo-slider::after {
+            right: 0;
+            background: linear-gradient(to left, var(--surface), transparent);
+        }
+
+        .logo-track {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            animation: logoScroll 28s linear infinite;
+            width: max-content;
+        }
+
+        .logo-track:hover { animation-play-state: paused; }
+
+        @keyframes logoScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        .logo-track img {
+            height: 40px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+            filter: grayscale(1) opacity(0.55);
+            transition: filter var(--transition), transform var(--transition);
+        }
+
+        .logo-track a:hover img {
+            filter: grayscale(0) opacity(1);
+            transform: scale(1.08);
+        }
+
+        /* ============================================================
+           SECTION HEADERS
+        ============================================================ */
+        .section-header { text-align: center; margin-bottom: 3rem; }
+
+        .section-header h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 4px 14px;
+            border-radius: 50px;
+            margin-bottom: 0.75rem;
+        }
+
+        /* ============================================================
+           MODALS
+        ============================================================ */
+        .modal-content {
+            border: none;
+            border-radius: var(--radius-xl) !important;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+        }
+
+        .modal-video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+            background: #000;
+        }
+
+        .modal-video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .testimonial-img {
+            width: 60px !important;
+            height: 60px !important;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border);
+        }
+
+        .story-content p { font-size: 15px; line-height: 1.8; color: var(--text-mid); margin-bottom: 1rem; }
+
+        blockquote.border-start {
+            font-size: 15px;
+            color: var(--text-mid);
+            background: var(--primary-light);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 1rem 1.25rem;
+            border-left: 4px solid var(--primary) !important;
+            border-radius: 0 !important;
+        }
+
+        /* ============================================================
+           RESPONSIVE TWEAKS
+        ============================================================ */
+        @media (max-width: 768px) {
+            .story-number { display: none; }
+            #impact .carousel-control-prev { left: 5px; }
+            #impact .carousel-control-next { right: 5px; }
+        }
+
+        /* ============================================================
+           SCROLL REVEAL ANIMATION
+        ============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .reveal-stagger > * {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+
+        .reveal-stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+        .reveal-stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.08s; }
+        .reveal-stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.16s; }
+        .reveal-stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.24s; }
+
+        /* ============================================================
+           BACK TO TOP
+        ============================================================ */
+        #back-to-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 44px; height: 44px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition), transform var(--transition);
+            box-shadow: 0 4px 16px rgba(0,175,239,0.4);
+            z-index: 1000;
+        }
+
+        #back-to-top.show { opacity: 1; pointer-events: all; }
+        #back-to-top:hover { transform: scale(1.1) translateY(-2px); }
+    </style>
+</head>
+
+<body>
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" style="width: 0%;"></div>
+
+    <div id="header-load"></div>
+
+    <main class="container-fluid px-0">
+
+        <!-- ============================================================
+             HERO CAROUSEL
+        ============================================================ -->
+        <div id="img-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="hover" data-bs-interval="5000">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#img-carousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+                <button type="button" data-bs-target="#img-carousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+                <button type="button" data-bs-target="#img-carousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+                <button type="button" data-bs-target="#img-carousel" data-bs-slide-to="3" aria-label="Slide 4" class=""></button>
+                <button type="button" data-bs-target="#img-carousel" data-bs-slide-to="4" aria-label="Slide 5" class=""></button>
+            </div>
+
+            <div class="carousel-welcome-overlay">
+                <div class="hero-glass-panel">
+                    <span class="hero-badge">Since 1999 · 25+ Years of Impact</span>
+                    <h1>Welcome to Gyan Shala</h1>
+                    <p>Providing high-quality, low-cost education to children in urban slums, bridging the gap to elite schooling.</p>
+                    <div class="hero-actions">
+                        <a href="about_us.html" class="btn-hero-primary">Learn More</a>
+                        <a href="programs.html" class="btn-hero-outline">Our Programs</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://gyanshala.org/wp-content/uploads/2016/12/High-School.png" alt="High School program" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://gyanshala.org/wp-content/uploads/2016/12/Individual-Support.png" alt="Individual Support" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://gyanshala.org/wp-content/uploads/2016/12/Whole-Class.png" alt="Whole Class" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://gyanshala.org/wp-content/uploads/2016/12/Worksheet.png" alt="Worksheet" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://gyanshala.org/wp-content/uploads/2016/12/Meeting-with-mothers.png" alt="Meeting with mothers" class="d-block w-100">
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#img-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#img-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- ============================================================
+             WELCOME STRIP
+        ============================================================ -->
+        <div id="welcome" class="section-block container reveal visible">
+            <h1>Empowering Every Child's Future Since 1999</h1>
+            <p>At Gyan Shala, we believe that quality education is the most powerful tool for breaking the cycle of poverty. For over 25 years, we have brought elite-level schooling directly into the heart of India's urban slums, ensuring that every child has the opportunity to dream, learn, and succeed.</p>
+        </div>
+
+        <!-- ============================================================
+             IMPACT BAR
+        ============================================================ -->
+        <div id="impact-bar" class="container reveal visible">
+            <div class="row text-center g-0 reveal-stagger visible">
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <h2 class="fw-bold mb-0 count-up" data-target="1200">1,200+</h2>
+                        <p>Classes Operating</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <h2 class="fw-bold mb-0 count-up" data-target="25000" data-suffix="+">25,000+</h2>
+                        <p>Children Enrolled</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <h2 class="fw-bold mb-0">4 States</h2>
+                        <p>National Footprint</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <h2 class="fw-bold mb-0">1/4th</h2>
+                        <p>Govt. School Cost</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             ROOTS & MODEL
+        ============================================================ -->
+        <div id="roots" class="section-block container reveal visible">
+            <div class="section-header">
+                <span class="section-eyebrow">Our Foundation</span>
+                <h2>Roots &amp; Model</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="root-card">
+                        <div class="root-card-icon">
+                            <i class="bi bi-tree-fill"></i>
+                        </div>
+                        <h4>Our Roots</h4>
+                        <p>Gyan Shala was founded by <strong>Prof. Pankaj Jain</strong> and a team of academic colleagues from <strong>IIMA</strong> and <strong>IRMA</strong>. Driven by the mission to provide "elite-school" quality education at a fraction of the cost, they established a model that bridges the learning gap for children in India's most marginalized urban slum communities.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="root-card">
+                        <div class="root-card-icon">
+                            <i class="bi bi-diagram-3-fill"></i>
+                        </div>
+                        <h4>Our Model</h4>
+                        <p>Our unique pedagogy uses <strong>daily worksheets</strong> and a highly structured <strong>team-based teaching</strong> approach. This system ensures high accountability, rigorous periodic assessments, and learning outcomes that consistently match or exceed those of top private schools.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             VISION / MISSION / GOAL
+        ============================================================ -->
+        <div id="vision" class="section-block container reveal visible">
+            <div class="section-header">
+                <span class="section-eyebrow">What Drives Us</span>
+                <h2>Vision, Mission &amp; Goal</h2>
+                <p>What drives us, guides us, and defines our purpose</p>
+            </div>
+
+            <div class="row g-4 reveal-stagger visible">
+                <!-- Vision -->
+                <div class="col-12 col-lg-4">
+                    <div class="vm-card vision h-100">
+                        <div class="icon-circle bg-soft-primary">
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                        <h4>Our Vision</h4>
+                        <p>An India where everyone has access to high quality education, achieving 100% literacy regardless of identity or circumstance through universal and easy accessibility.</p>
+                    </div>
+                </div>
+                <!-- Mission -->
+                <div class="col-12 col-lg-4">
+                    <div class="vm-card mission h-100">
+                        <div class="icon-circle bg-soft-success">
+                            <i class="bi bi-diagram-3"></i>
+                        </div>
+                        <h4>Our Mission</h4>
+                        <p>To develop a high-quality pedagogical model that matches premium standards at a fraction of the cost, and is scalable nationwide without compromising student outcomes.</p>
+                    </div>
+                </div>
+                <!-- Goal -->
+                <div class="col-12 col-lg-4">
+                    <div class="vm-card goal h-100">
+                        <div class="icon-circle bg-soft-warning">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+                        <h4>Our Goal</h4>
+                        <p>To bridge the educational divide in India by ensuring children in urban slums and rural villages receive the same caliber of learning as the nation's most privileged children.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Values -->
+            <div class="mt-4 p-4 values-section reveal visible">
+                <h5 class="fw-bold text-center mb-4" style="font-size:16px;">Our Core Values</h5>
+                <div class="row text-center g-3 reveal-stagger visible">
+                    <div class="col-6 col-md-3">
+                        <div class="value-item">
+                            <i class="bi bi-heart-fill text-primary"></i>
+                            <p>Empathy &amp; Humility</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="value-item">
+                            <i class="bi bi-shield-check text-primary"></i>
+                            <p>Integrity &amp; Ethics</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="value-item">
+                            <i class="bi bi-clipboard-check text-primary"></i>
+                            <p>Quality &amp; Accountability</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="value-item">
+                            <i class="bi bi-people-fill text-primary"></i>
+                            <p>Teamwork &amp; Excellence</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             IMPACT STORIES
+        ============================================================ -->
+        <div id="stories" class="section-block container reveal visible">
+            <div class="section-header">
+                <span class="section-eyebrow">Real Impact</span>
+                <h2>Impact Stories</h2>
+                <p>Real impact is best measured by the lives we transform. Meet our students who are breaking the cycle of poverty.</p>
+            </div>
+
+            <div id="impact" class="carousel slide impact-slider-container" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#impact" data-bs-slide-to="0" class=""></button>
+                    <button type="button" data-bs-target="#impact" data-bs-slide-to="1" class=""></button>
+                    <button type="button" data-bs-target="#impact" data-bs-slide-to="2" class=""></button>
+                    <button type="button" data-bs-target="#impact" data-bs-slide-to="3" class="active" aria-current="true"></button>
+                    <button type="button" data-bs-target="#impact" data-bs-slide-to="4" class=""></button>
+                    <button type="button" data-bs-target="#impact" data-bs-slide-to="5" class=""></button>
+                    <button type="button" data-bs-target="#impact" data-bs-slide-to="6" class=""></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item" data-bs-toggle="modal" data-bs-target="#amishaModal" style="cursor:pointer;">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-lg-5 text-center">
+                                <img src="media/amisha.jpg" alt="Amisha Parmar" class="impact-slide-image">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="impact-slide-content">
+                                    <span class="story-number">01</span>
+                                    <h3>Amisha Parmar</h3>
+                                    <p>Scored 98.97 percentile in Grade 12 Science. She now aspires to become a doctor.</p>
+                                    <a class="read-more-link">Read Full Story <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-toggle="modal" data-bs-target="#meenaModal" style="cursor:pointer;">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-lg-5 text-center">
+                                <img src="media/meena.jpg" alt="Meena Parmar" class="impact-slide-image">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="impact-slide-content">
+                                    <span class="story-number">02</span>
+                                    <h3>Meena Parmar</h3>
+                                    <p>The only sibling out of seven to reach the 10th board exams. "I want to give special thanks to Gyan Shala."</p>
+                                    <a class="read-more-link">Read Full Story <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-toggle="modal" data-bs-target="#chavdaModal" style="cursor:pointer;">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-lg-5 text-center">
+                                <img src="media/images/chavda_sisters.png" alt="Chavda Sisters" class="impact-slide-image">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="impact-slide-content">
+                                    <span class="story-number">03</span>
+                                    <h3>Jinkal &amp; Kinjal Chavda</h3>
+                                    <p>Despite family struggles, both sisters passed their boards with 89th and 90th percentiles.</p>
+                                    <a class="read-more-link">Read Full Story <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item active" data-bs-toggle="modal" data-bs-target="#tulsiModal" style="cursor:pointer;">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-lg-5 text-center">
+                                <img src="media/tulsi.jpg" alt="Tulsi Khetaji Meghwal" class="impact-slide-image">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="impact-slide-content">
+                                    <span class="story-number">04</span>
+                                    <h3>Tulsi Khetaji Meghwal</h3>
+                                    <p>Daughter of a vegetable vendor, Tulsi scored 89% in Grade 12 Science. Now pursuing Computer Engineering.</p>
+                                    <a class="read-more-link">Read Full Story <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-toggle="modal" data-bs-target="#arunModal" style="cursor:pointer;">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-lg-5 text-center">
+                                <img src="media/arun.jpg" alt="Arun Dantani" class="impact-slide-image">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="impact-slide-content">
+                                    <span class="story-number">05</span>
+                                    <h3>Arun Dantani</h3>
+                                    <p>Son of vegetable vendors, Arun secured a distinction in Grade 10 and wants to be an engineer.</p>
+                                    <a class="read-more-link">Read Full Story <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-toggle="modal" data-bs-target="#maheshModal" style="cursor:pointer;">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-lg-5 text-center">
+                                <img src="media/mahesh.jpg" alt="Mahesh Vaghela" class="impact-slide-image">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="impact-slide-content">
+                                    <span class="story-number">06</span>
+                                    <h3>Mahesh Vinodbhai Vaghela</h3>
+                                    <p>Worked as a vendor from 4:30 AM to support his family while completing his basic education.</p>
+                                    <a class="read-more-link">Read Full Story <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-toggle="modal" data-bs-target="#dipakModal" style="cursor:pointer;">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-lg-5 text-center">
+                                <img src="media/dipak.jpg" alt="Dipak Sargara" class="impact-slide-image">
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="impact-slide-content">
+                                    <span class="story-number">07</span>
+                                    <h3>Dipak Sargara</h3>
+                                    <p>Currently pursuing B.Com and working in computer accounting for 3 years.</p>
+                                    <a class="read-more-link">Read Full Story <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#impact" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#impact" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             GET INVOLVED
+        ============================================================ -->
+        <div id="get-involved" class="section-block container reveal visible">
+            <div class="section-header">
+                <span class="section-eyebrow">Join Us</span>
+                <h2>Get Involved</h2>
+                <p>Join us in our mission to transform lives through quality education.</p>
+            </div>
+
+            <div class="row g-4 reveal-stagger visible">
+                <div class="col-md-6">
+                    <div class="involved-grid-item">
+                        <div class="involved-grid-icon-box"><i class="bi bi-person-heart"></i></div>
+                        <div class="involved-grid-content">
+                            <h5>Volunteer</h5>
+                            <p>We welcome professionals to mentor, teach, or support our operations and children's education.</p>
+                            <a href="mailto:info@gyanshala.org" class="btn btn-sm btn-outline-primary">Email Us</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="involved-grid-item">
+                        <div class="involved-grid-icon-box"><i class="bi bi-gift"></i></div>
+                        <div class="involved-grid-content">
+                            <h5>Donate</h5>
+                            <p>Your contributions help us sustain and scale our inclusive education model in urban slums.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Support Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="involved-grid-item">
+                        <div class="involved-grid-icon-box"><i class="bi bi-briefcase"></i></div>
+                        <div class="involved-grid-content">
+                            <h5>Careers</h5>
+                            <p>Join a passionate team. Build a career with social impact in education and management.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">View Jobs</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="involved-grid-item">
+                        <div class="involved-grid-icon-box"><i class="bi bi-building-check"></i></div>
+                        <div class="involved-grid-content">
+                            <h5>Partner</h5>
+                            <p>We collaborate with governments and institutions for large-scale adoption of our model.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Collaborate</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             DONORS SLIDER
+        ============================================================ -->
+        <div id="donors" class="section-block container reveal text-center visible">
+            <h6 class="text-muted fw-bold text-uppercase mb-4" style="letter-spacing: 2.5px; font-size: 11px;">Our Valued Donors &amp; Partners</h6>
+            <div class="logo-slider">
+                <div class="logo-track">
+                    <a href="https://www.sbifoundation.in/" target="_blank"><img src="/media/images/SBI_foundation.png" alt="SBI Foundation"></a>
+                    <a href="https://www.tatatrusts.org/" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMOLEvMqzjpMEtpu8ClCtAIeEtnKn_t6St9Q&amp;s" alt="Tata Trusts"></a>
+                    <a href="https://www.bandhan.bank.in/" target="_blank"><img src="/media/images/Gruh_Finance_Limited.png" alt="Gruh Finance Limited"></a>
+                    <a href="https://www.macfound.org/" target="_blank"><img src="/media/images/MacArthur_Foundation.png" alt="MacArthur Foundation"></a>
+                    <a href="https://www.icicifoundation.org/" target="_blank"><img src="https://impact.icicifoundation.org/public/assets/img/foundation_logo.png" alt="ICICI Foundation"></a>
+                    <a href="https://www.janvikas.in/" target="_blank"><img src="https://content.jdmagicbox.com/comp/ahmedabad/97/079p251697/catalogue/janvikas-bodakdev-ahmedabad-charitable-trusts-8ajmory4he.jpg" alt="Janvikas"></a>
+                    <a href="https://www.dell.org/" target="_blank"><img src="https://s3.ap-south-1.amazonaws.com/assets.ynos.in/fund-logos/FUND_000188.png" alt="Michael &amp; Susan Dell Foundation"></a>
+                    <a href="https://www.educationaboveall.org/our-programmes/educate-a-child" target="_blank"><img src="/media/images/educate_a_child.png" alt="Educate A Child"></a>
+                    <a href="https://shareandcare.org/" target="_blank"><img src="https://shareandcare.org/wp-content/uploads/2024/01/SAC_logo_stacked_420x200_v4.png" alt="Share &amp; Care Foundation"></a>
+                    <a href="https://www.packard.org/" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzhrVkD_3EP100svWj--BR9GDYFv0Qo5Zl5g&amp;s" alt="The David &amp; Lucile Packard Foundation"></a>
+                    <!-- Duplicate for seamless loop -->
+                    <a href="https://www.sbifoundation.in/" target="_blank"><img src="/media/images/SBI_foundation.png" alt="SBI Foundation"></a>
+                    <a href="https://www.tatatrusts.org/" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMOLEvMqzjpMEtpu8ClCtAIeEtnKn_t6St9Q&amp;s" alt="Tata Trusts"></a>
+                    <a href="https://www.bandhan.bank.in/" target="_blank"><img src="/media/images/Gruh_Finance_Limited.png" alt="Gruh Finance Limited"></a>
+                    <a href="https://www.macfound.org/" target="_blank"><img src="/media/images/MacArthur_Foundation.png" alt="MacArthur Foundation"></a>
+                    <a href="https://www.icicifoundation.org/" target="_blank"><img src="https://impact.icicifoundation.org/public/assets/img/foundation_logo.png" alt="ICICI Foundation"></a>
+                    <a href="https://www.janvikas.in/" target="_blank"><img src="https://content.jdmagicbox.com/comp/ahmedabad/97/079p251697/catalogue/janvikas-bodakdev-ahmedabad-charitable-trusts-8ajmory4he.jpg" alt="Janvikas"></a>
+                    <a href="https://www.dell.org/" target="_blank"><img src="https://s3.ap-south-1.amazonaws.com/assets.ynos.in/fund-logos/FUND_000188.png" alt="Michael &amp; Susan Dell Foundation"></a>
+                    <a href="https://www.educationaboveall.org/our-programmes/educate-a-child" target="_blank"><img src="/media/images/educate_a_child.png" alt="Educate A Child"></a>
+                    <a href="https://shareandcare.org/" target="_blank"><img src="https://shareandcare.org/wp-content/uploads/2024/01/SAC_logo_stacked_420x200_v4.png" alt="Share &amp; Care Foundation"></a>
+                    <a href="https://www.packard.org/" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzhrVkD_3EP100svWj--BR9GDYFv0Qo5Zl5g&amp;s" alt="The David &amp; Lucile Packard Foundation"></a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ============================================================
+         BACK TO TOP BUTTON
+    ============================================================ -->
+    <button id="back-to-top" aria-label="Back to top" title="Back to top" class="">
+        <i class="bi bi-chevron-up"></i>
+    </button>
+
+    <!-- ============================================================
+         MODALS (unchanged content, updated styling)
+    ============================================================ -->
+
+    <!-- Amisha Modal -->
+    <div class="modal fade" id="amishaModal" tabindex="-1" aria-labelledby="amishaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5 pt-0">
+                    <div class="modal-video-container">
+                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/vCpyweZIwNw?si=5dylEwl_OlWGiG7q&amp;controls=0&amp;start=7&amp;rel=0" title="Amisha Parmar's Story" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="media/amisha.jpg" alt="Amisha Parmar" class="testimonial-img me-3">
+                        <div>
+                            <h4 class="fw-bold mb-0">Amisha Parmar</h4>
+                            <span class="text-primary">Medical Student (MBBS)</span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <p>Amisha sets an exemplary example that no obstacle is too big when pulled by your dreams. Scoring an incredible <strong>98.97 percentile</strong> in her 12th Grade Science Boards, she is now pursuing her lifelong dream of becoming a doctor.</p>
+                        <p>Living in the Gupta Nagar slums of Ahmedabad, Amisha's father was the sole breadwinner for a family of six. The financial strain was immense, but the presence of a Gyan Shala center in her vicinity provided her the opportunity to kick-start her journey. She studied with us from Grade 1 through Grade 10, achieving a 97.94 percentile in her 10th Board exams.</p>
+                        <blockquote class="border-start border-4 border-primary ps-4 my-4 fst-italic">
+                            "We heartily accolade Gyan Shala's profound impact on our girl and its efforts to germinate the seeds of education and build a foundation stone for Amisha's career."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meena Modal -->
+    <div class="modal fade" id="meenaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5 pt-0">
+                    <div class="modal-video-container">
+                        <iframe src="https://www.youtube.com/embed/lyR6KaE_ckw?enablejsapi=1" title="Meena's Story" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="media/meena.jpg" alt="Meena Parmar" class="testimonial-img me-3">
+                        <div>
+                            <h4 class="fw-bold mb-0">Meena Parmar</h4>
+                            <span class="text-primary fw-bold">Grade 10 Graduate</span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <p>At age 8, Meena's family faced a tragedy when her father passed away, leaving her mother to support seven siblings through field labor. Poverty reached a stage where her brothers had to polish shoes to earn meals.</p>
+                        <p>During this period, Gyan Shala motivated Meena to stay in school. She successfully passed her 10th Board exams — the only one among her seven siblings to study that far.</p>
+                        <blockquote class="border-start border-4 border-primary ps-4 my-4 fst-italic">
+                            "I want to give special thanks to Gyan Shala and my teachers who always guided me in the right direction and played a role of parents."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chavda Modal -->
+    <div class="modal fade" id="chavdaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5 pt-0">
+                    <div class="modal-video-container">
+                        <iframe src="https://www.youtube.com/embed/_uEOpZlU_Vk" title="Chavda Sisters' Story" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="media/images/chavda_sisters.png" alt="Chavda Sisters" class="testimonial-img me-3">
+                        <div>
+                            <h4 class="fw-bold mb-0">Jinkal &amp; Kinjal Chavda</h4>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <p>Can you imagine the struggle of parents funding the education of two daughters while even facing difficulties managing daily chores and two-time meals?</p>
+                        <p>Jinkal and Kinjal are two sisters from Pragati Nagar slums. Against all odds, Jinkal passed Grade 12 with 90 percentile while Kinjal passed Grade 10 with 89 percentile.</p>
+                        <blockquote class="border-start border-4 border-primary ps-4 my-4 fst-italic">
+                            "We are blessed to have Gyan Shala platform which helped us to continue our education even though in sheer struggles."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tulsi Modal -->
+    <div class="modal fade" id="tulsiModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5 pt-0">
+                    <div class="modal-video-container">
+                        <iframe src="https://www.youtube.com/embed/J-d5cgKhYEQ?enablejsapi=1" title="Tulsi's Story" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="media/tulsi.jpg" alt="Tulsi Meghwal" class="testimonial-img me-3">
+                        <div>
+                            <h4 class="fw-bold mb-0">Tulsi Meghwal</h4>
+                            <span class="text-primary fw-bold">Computer Engineering Student</span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <p>Tulsi Khetaji Meghwal, a bright student and daughter of a vegetable vendor, studied until Grade 7 under Gyan Shala's guidance. She achieved a distinction (89%) in her 12th Grade Science stream and is now successfully pursuing Computer Engineering.</p>
+                        <blockquote class="border-start border-4 border-primary ps-4 my-4 fst-italic">
+                            "Every child should be made to undergo education like me. What quality education enables a child to do cannot be easily measured. With basic education and inner motivation, it can work wonders for an underprivileged child."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arun Modal -->
+    <div class="modal fade" id="arunModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5 pt-0">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="media/arun.jpg" alt="Arun Dantani" class="testimonial-img me-3">
+                        <div>
+                            <h4 class="fw-bold mb-0">Arun Dantani</h4>
+                            <span class="text-primary fw-bold">Aspirant Engineer</span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <p>Arun wakes at 5 AM to study, attends Gyan Shala until 1:30 PM, and then works in a wheat-grinding shop from 3:30 PM to 9:30 PM to support his family. He secured a distinction with 74% in his 10th Grade exams and is now pursuing a diploma in engineering.</p>
+                        <blockquote class="border-start border-4 border-primary ps-4 my-4 fst-italic">
+                            "I never thought of dropping from school despite a hectic schedule due to my parent's support along with Gyan Shala's able guidance."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mahesh Modal -->
+    <div class="modal fade" id="maheshModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5 pt-0">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="media/mahesh.jpg" alt="Mahesh Vaghela" class="testimonial-img me-3">
+                        <div>
+                            <h4 class="fw-bold mb-0">Mahesh Vaghela</h4>
+                            <span class="text-primary fw-bold">Entrepreneur</span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <p>After his father passed away when he was 15, Mahesh became the primary provider as a vegetable vendor, waking at 4:30 AM every day. He now focuses his energy on ensuring his younger brother reaches the academic heights he once envisioned.</p>
+                        <blockquote class="border-start border-4 border-primary ps-4 my-4 fst-italic">
+                            "With renewed vigor in the form of my brother, I will make sure to fulfill his dreams of achieving higher education."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dipak Modal -->
+    <div class="modal fade" id="dipakModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5 pt-0">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="media/dipak.jpg" alt="Dipak Sargara" class="testimonial-img me-3">
+                        <div>
+                            <h4 class="fw-bold mb-0">Dipak Sargara</h4>
+                            <span class="text-primary fw-bold">B.Com Student</span>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        <p>Despite being bed-ridden for four months in 10th grade, Dipak passed with flying colors. Since Grade 11, he has been entirely self-reliant, paying his own school and college expenses through computer accounting work.</p>
+                        <blockquote class="border-start border-4 border-primary ps-4 my-4 fst-italic">
+                            "Gyan Shala is home to me."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-load"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            /* --------------------------------------------------
+               1. SCROLL PROGRESS BAR
+            -------------------------------------------------- */
+            const progressBar = document.getElementById('scroll-progress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+            }, { passive: true });
+
+            /* --------------------------------------------------
+               2. BACK TO TOP BUTTON
+            -------------------------------------------------- */
+            const btt = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                btt.classList.toggle('show', window.scrollY > 400);
+            }, { passive: true });
+            btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            /* --------------------------------------------------
+               3. SCROLL REVEAL (IntersectionObserver)
+            -------------------------------------------------- */
+            const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            revealEls.forEach(el => observer.observe(el));
+
+            /* --------------------------------------------------
+               4. COUNT-UP ANIMATION for stats
+            -------------------------------------------------- */
+            const counters = document.querySelectorAll('.count-up');
+            const countObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target, 10);
+                    const suffix = el.dataset.suffix || '+';
+                    const duration = 1600;
+                    const start = performance.now();
+
+                    function update(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const value = Math.round(eased * target);
+                        el.textContent = value.toLocaleString('en-IN') + (progress === 1 ? suffix : '');
+                        if (progress < 1) requestAnimationFrame(update);
+                    }
+
+                    requestAnimationFrame(update);
+                    countObserver.unobserve(el);
+                });
+            }, { threshold: 0.5 });
+            counters.forEach(c => countObserver.observe(c));
+
+            /* --------------------------------------------------
+               5. STOP VIDEO ON MODAL CLOSE
+            -------------------------------------------------- */
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('hidden.bs.modal', function () {
+                    const iframe = modal.querySelector('iframe');
+                    if (iframe) iframe.src = iframe.src;
+                });
+            });
+
+        });
+    </script>
+
+
+
+</body></html>

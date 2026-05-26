@@ -2,9 +2,6 @@
 <html lang="en">
 
 <head>
-    <link
-        href="https://unpkg.com/aos@2.3.4/dist/aos.css"
-        rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gyan Shala</title>
@@ -19,32 +16,6 @@
     <link rel="stylesheet" href="/style.css">
 
     <style>
-    html{
-
-        scroll-behavior:smooth;
-
-    }
-    .stat-item{
-
-    transition:0.4s;
-
-}
-
-.stat-item:hover{
-
-    transform:translateY(-10px);
-
-    background:#00afef;
-
-    color:white;
-
-}
-
-.stat-item:hover h2{
-
-    color:white;
-
-}
         .impact-slider-container {
             padding: 40px 60px;
             background: #fff;
@@ -259,142 +230,12 @@
             width: 100%;
             height: 100%;
         }
-        .vm-card,
-        .card,
-        .story-card{
-        
-            transition: all 0.4s ease;
-        
-        }
-
-        .vm-card:hover,
-        .card:hover,
-        .story-card:hover{
-        
-            transform: translateY(-8px);
-        
-            box-shadow:
-            0 15px 40px rgba(0,0,0,0.12);
-        
-        }
-        .carousel-item img{
-
-            transition: transform 8s ease;
-
-        }
-
-        .carousel-item.active img{
-        
-            transform: scale(1.05);
-        
-        }
-        .carousel-welcome-overlay h1{
-
-            animation: slideDown 1s ease;
-
-        }
-
-        .carousel-welcome-overlay p{
-        
-            animation: fadeIn 2s ease;
-        
-        }
-
-        @keyframes slideDown{
-        
-        from{
-            transform:translateY(-40px);
-            opacity:0;
-        }
-
-        to{
-            transform:translateY(0);
-            opacity:1;
-        }
-
-        }
-
-        @keyframes fadeIn{
-        
-        from{
-            opacity:0;
-        }
-
-        to{
-            opacity:1;
-        }
-
-}
-.floating-donate{
-
-    position:fixed;
-
-    right:20px;
-    bottom:20px;
-
-    background:#00afef;
-    color:white;
-
-    padding:14px 22px;
-
-    border-radius:50px;
-
-    text-decoration:none;
-
-    z-index:999;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,0.2);
-
-    transition:0.3s;
-
-}
-
-.floating-donate:hover{
-
-    transform:translateY(-5px);
-
-}
-    .btn-primary{
-
-        background:
-        linear-gradient(
-            45deg,
-            #00afef,
-            #0077b6
-        );
-
-        border:none;
-
-        transition:0.3s;
-
-    }
-
-    .btn-primary:hover{
-
-        transform:translateY(-3px);
-
-    }
-    .navbar{
-
-    backdrop-filter: blur(10px);
-
-    background:
-    rgba(255,255,255,0.85);
-
-}
     </style>
 </head>
 
 <body>
     <div id="header-load"></div>
-    <a href="get involved.html"
-        class="floating-donate">
 
-        ❤ Donate
-
-    </a>
-    
     <main class="container-fluid px-0">
         <div id="img-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="hover">
             <div class="carousel-indicators">
@@ -1228,27 +1069,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
-    <h2>
-
-        <span class="purecounter"
-        data-purecounter-start="0"
-        data-purecounter-end="25000">
-        </span>+
-
-    </h2>
-    <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
-
-        <script>
-        new PureCounter();
-    </script>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-    <script>
-    AOS.init({
-        duration:1000,
-        once:true
-    });
-    </script>
 </body>
 
 </html>

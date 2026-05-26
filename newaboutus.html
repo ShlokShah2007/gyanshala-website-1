@@ -1,0 +1,1051 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — Gyan Shala</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --ink: #0d1117;
+            --paper: #f7f4ef;
+            --sky: #0a6fa8;
+            --sky-light: #e8f4fb;
+            --sky-mid: #1b9cd8;
+            --gold: #e8a020;
+            --muted: #6b7280;
+            --white: #ffffff;
+            --border: #e2ddd6;
+            --section-gap: 7rem;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* ── HERO ─────────────────────────────────────────── */
+        .hero {
+            min-height: 92vh;
+            background: var(--ink);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(10,111,168,.35) 0%, transparent 70%);
+            top: -150px; right: -150px;
+            pointer-events: none;
+        }
+
+        .hero-glow-2 {
+            position: absolute;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(232,160,32,.15) 0%, transparent 70%);
+            bottom: -100px; left: 5%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 30px; height: 2px;
+            background: var(--gold);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1.05;
+            color: var(--white);
+            max-width: 800px;
+        }
+
+        .hero h1 span {
+            color: var(--sky-mid);
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,.6);
+            max-width: 540px;
+            line-height: 1.7;
+            margin-top: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            margin-top: 3rem;
+            padding: .9rem 1.8rem;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 100px;
+            color: rgba(255,255,255,.75);
+            font-size: .9rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 0 3px rgba(74,222,128,.25);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(74,222,128,.25); }
+            50% { box-shadow: 0 0 0 6px rgba(74,222,128,.1); }
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem;
+            color: rgba(255,255,255,.35);
+            font-size: .7rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .hero-scroll-line {
+            width: 1px; height: 50px;
+            background: linear-gradient(to bottom, rgba(255,255,255,.35), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* ── SECTION WRAPPER ─────────────────────────────── */
+        .section-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--section-gap) 2rem;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--sky);
+            margin-bottom: 1.2rem;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 20px; height: 2px;
+            background: var(--sky);
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--ink);
+        }
+
+        .section-heading em {
+            font-style: normal;
+            color: var(--sky);
+        }
+
+        /* ── HISTORY ─────────────────────────────────────── */
+        #history {
+            background: var(--white);
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .history-sticky {
+            position: sticky;
+            top: 5rem;
+        }
+
+        .history-meta {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .history-stat {
+            text-align: center;
+        }
+
+        .history-stat .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--sky);
+            line-height: 1;
+        }
+
+        .history-stat .lbl {
+            font-size: .75rem;
+            font-weight: 500;
+            color: var(--muted);
+            letter-spacing: .05em;
+            margin-top: .25rem;
+        }
+
+        .history-divider {
+            width: 1px;
+            height: 50px;
+            background: var(--border);
+        }
+
+        .history-body p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #3a3f4a;
+            margin-bottom: 1.4rem;
+            font-weight: 300;
+        }
+
+        .history-body p:first-of-type::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            float: left;
+            line-height: .8;
+            margin: .08em .15em 0 0;
+            color: var(--sky);
+        }
+
+        .history-quote {
+            margin: 2.5rem 0;
+            padding: 1.8rem 2rem;
+            border-left: 4px solid var(--sky);
+            background: var(--sky-light);
+            border-radius: 0 12px 12px 0;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: #2a3040;
+            line-height: 1.7;
+        }
+
+        /* ── APPROACH ────────────────────────────────────── */
+        #approach {
+            background: var(--paper);
+        }
+
+        .approach-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: end;
+            margin-bottom: 4rem;
+        }
+
+        .approach-intro {
+            font-size: 1.1rem;
+            line-height: 1.75;
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            transition: background .25s ease;
+        }
+
+        .feature-card:hover {
+            background: var(--ink);
+        }
+
+        .feature-card:hover .feat-title,
+        .feature-card:hover .feat-body {
+            color: var(--white);
+        }
+
+        .feature-card:hover .feat-icon {
+            background: rgba(255,255,255,.1);
+            color: var(--sky-mid);
+        }
+
+        .feat-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            background: var(--sky-light);
+            color: var(--sky);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.4rem;
+            transition: all .25s;
+        }
+
+        .feat-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: .6rem;
+            transition: color .25s;
+        }
+
+        .feat-body {
+            font-size: .9rem;
+            line-height: 1.65;
+            color: var(--muted);
+            font-weight: 300;
+            transition: color .25s;
+        }
+
+        /* ── 5A FRAMEWORK ────────────────────────────────── */
+        .fivea-block {
+            background: var(--ink);
+            border-radius: 24px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+        }
+
+        .fivea-visual {
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a2a40 0%, #0a6fa8 100%);
+        }
+
+        .fivea-visual img {
+            max-width: 100%;
+            filter: brightness(0) invert(1) opacity(.85);
+        }
+
+        .fivea-content {
+            padding: 3.5rem;
+        }
+
+        .fivea-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: .6rem;
+        }
+
+        .fivea-sub {
+            font-size: .9rem;
+            color: rgba(255,255,255,.45);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .fivea-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .fivea-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .fivea-pill {
+            padding: .3rem .9rem;
+            background: rgba(27,156,216,.2);
+            border: 1px solid rgba(27,156,216,.35);
+            border-radius: 100px;
+            color: var(--sky-mid);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            white-space: nowrap;
+            margin-top: .1rem;
+        }
+
+        .fivea-item p {
+            font-size: .88rem;
+            color: rgba(255,255,255,.6);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .fivea-closing {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,.1);
+            font-size: .9rem;
+            color: rgba(255,255,255,.45);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* ── TEAM ────────────────────────────────────────── */
+        #team-section {
+            background: var(--white);
+        }
+
+        .team-intro {
+            max-width: 680px;
+            margin-bottom: 4rem;
+        }
+
+        .team-intro p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            line-height: 1.75;
+            margin-top: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* Pyramid */
+        .pyramid-wrap {
+            max-width: 780px;
+        }
+
+        .tier {
+            display: flex;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: all .3s cubic-bezier(.4,0,.2,1);
+        }
+
+        .tier-bar {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.6rem;
+            width: 100%;
+            transition: all .3s cubic-bezier(.4,0,.2,1);
+        }
+
+        .tier-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tier-num {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .75rem;
+            font-weight: 700;
+            color: rgba(255,255,255,.8);
+            flex-shrink: 0;
+        }
+
+        .tier-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--white);
+        }
+
+        .tier-icon {
+            color: rgba(255,255,255,.5);
+            font-size: 1.2rem;
+            transition: transform .3s;
+        }
+
+        .tier.open .tier-icon {
+            transform: rotate(180deg);
+        }
+
+        .tier-detail {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(255,255,255,.06);
+            transition: max-height .4s cubic-bezier(.4,0,.2,1), padding .3s;
+            padding: 0 1.6rem;
+        }
+
+        .tier.open .tier-detail {
+            max-height: 200px;
+            padding: 1.2rem 1.6rem;
+        }
+
+        .tier-detail p {
+            font-size: .9rem;
+            color: rgba(255,255,255,.7);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .tier-1 { background: #003d5a; }
+        .tier-2 { background: #005275; }
+        .tier-3 { background: #006794; }
+        .tier-4 { background: #0a7db5; }
+        .tier-5 { background: #1b9cd8; }
+        .tier-6 { background: #42b8f0; }
+
+        .tier:hover { filter: brightness(1.1); }
+
+        .pyramid-widths {
+            --w1: 30%; --w2: 44%; --w3: 58%;
+            --w4: 72%; --w5: 86%; --w6: 100%;
+        }
+
+        .tier-1 .tier-bar { max-width: var(--w1); margin: 0 auto; }
+        .tier-2 .tier-bar { max-width: var(--w2); margin: 0 auto; }
+        .tier-3 .tier-bar { max-width: var(--w3); margin: 0 auto; }
+        .tier-4 .tier-bar { max-width: var(--w4); margin: 0 auto; }
+        .tier-5 .tier-bar { max-width: var(--w5); margin: 0 auto; }
+        .tier-6 .tier-bar { max-width: var(--w6); margin: 0 auto; }
+
+        .tier-1.open .tier-bar,
+        .tier-2.open .tier-bar,
+        .tier-3.open .tier-bar,
+        .tier-4.open .tier-bar,
+        .tier-5.open .tier-bar,
+        .tier-6.open .tier-bar {
+            max-width: 100%;
+        }
+
+        .team-cta {
+            margin-top: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .team-cta p {
+            font-size: .9rem;
+            color: var(--muted);
+        }
+
+        /* ── TRANSPARENCY ────────────────────────────────── */
+        #transparency {
+            background: var(--paper);
+        }
+
+        .transparency-card {
+            background: var(--ink);
+            border-radius: 24px;
+            padding: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transparency-card::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(10,111,168,.3) 0%, transparent 60%);
+            top: -200px; right: -100px;
+            pointer-events: none;
+        }
+
+        .transparency-card .tc-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: .8rem;
+            position: relative;
+        }
+
+        .transparency-card .tc-body {
+            font-size: 1rem;
+            color: rgba(255,255,255,.55);
+            line-height: 1.7;
+            max-width: 540px;
+            font-weight: 300;
+            position: relative;
+        }
+
+        /* ── BUTTONS ─────────────────────────────────────── */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .9rem 2rem;
+            background: var(--sky);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: .9rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all .25s;
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            background: var(--sky-mid);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(10,111,168,.35);
+            color: var(--white);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .9rem 2rem;
+            background: transparent;
+            color: var(--sky);
+            font-family: 'DM Sans', sans-serif;
+            font-size: .9rem;
+            font-weight: 600;
+            border: 1.5px solid var(--sky);
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all .25s;
+            white-space: nowrap;
+        }
+
+        .btn-outline:hover {
+            background: var(--sky);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .btn-white-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: 1rem 2.2rem;
+            background: transparent;
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: .9rem;
+            font-weight: 600;
+            border: 1.5px solid rgba(255,255,255,.35);
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all .25s;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .btn-white-outline:hover {
+            background: rgba(255,255,255,.1);
+            border-color: var(--white);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* ── FADE-IN ANIMATION ───────────────────────────── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ──────────────────────────────────── */
+        @media (max-width: 900px) {
+            :root { --section-gap: 4rem; }
+
+            .history-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .history-sticky { position: static; }
+            .approach-header { grid-template-columns: 1fr; gap: 1.5rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .fivea-block { grid-template-columns: 1fr; }
+            .fivea-visual { display: none; }
+            .transparency-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 2.5rem;
+            }
+            .pyramid-widths {
+                --w1: 50%; --w2: 60%; --w3: 70%;
+                --w4: 80%; --w5: 90%; --w6: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-scroll { display: none; }
+            .history-meta { flex-wrap: wrap; gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── HERO ──────────────────────────────────────────── -->
+    <section class="hero">
+        <div class="hero-grid-bg"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-glow-2"></div>
+
+        <div class="hero-content">
+            <div class="hero-eyebrow">About Gyan Shala</div>
+            <h1>Education that <span>reaches</span> every child.</h1>
+            <p class="hero-sub">Dedicated to providing quality schooling to underprivileged children across India — at scale, with integrity, since 1999.</p>
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Founded 1999 · Ahmedabad, India
+            </div>
+        </div>
+
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+            Scroll
+        </div>
+    </section>
+
+    <!-- ── HISTORY ────────────────────────────────────────── -->
+    <section id="history">
+        <div class="section-wrap">
+            <div class="history-grid">
+                <div class="history-sticky fade-up visible">
+                    <div class="section-label">Our Story</div>
+                    <h2 class="section-heading">History &amp; <em>Journey</em></h2>
+
+                    <div class="history-meta">
+                        <div class="history-stat">
+                            <div class="num">25+</div>
+                            <div class="lbl">Years of Impact</div>
+                        </div>
+                        <div class="history-divider"></div>
+                        <div class="history-stat">
+                            <div class="num">1,200+</div>
+                            <div class="lbl">Team Members</div>
+                        </div>
+                        <div class="history-divider"></div>
+                        <div class="history-stat">
+                            <div class="num">95%</div>
+                            <div class="lbl">Children Served</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-body fade-up visible">
+                    <p>Gyan Shala was founded by Prof. Pankaj Jain, alongside colleagues from IIMA and IRMA, to develop and implement a highly effective, high-quality education model for India's underserved children at scale.</p>
+
+                    <p>The initiative was sparked by Prof. Jain's experience on the terminal review mission for the Andhra Pradesh Primary Education Project (APPEP) in the early 90s. Despite being well-funded and professionally executed, the British-backed program failed to produce significant improvements in student learning outcomes.</p>
+
+                    <div class="history-quote">"The traditional model of quality schooling, which is heavily dependent on exceptional teachers led by exceptional leaders, could realistically serve only the top 5% of children."</div>
+
+                    <p>During his other work, Prof. Jain observed that Bangladeshi girls from poor families were outperforming their Indian counterparts in early schooling, despite Bangladesh being economically poorer and socially more conservative at the time. These observations challenged his fundamental understanding of pedagogy.</p>
+
+                    <p>Throughout the mid-to-late 90s, he studied various government and non-government school programs in India and many other countries. His research led to a critical insight — for the remaining 95%, a different approach was needed: one that ensures every child meets clearly defined learning outcomes while operating with readily available and sustainable human and financial resources at scale.</p>
+
+                    <p>Drawing inspiration from excellent schooling systems and large-scale development programs such as AMUL and BRAC, Prof. Jain and his colleagues founded Gyan Shala under the Education Support Organization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── APPROACH ───────────────────────────────────────── -->
+    <section id="approach">
+        <div class="section-wrap">
+            <div class="approach-header fade-up visible">
+                <div>
+                    <div class="section-label">How We Work</div>
+                    <h2 class="section-heading">Our <em>Approach</em></h2>
+                </div>
+                <p class="approach-intro">The system of education that Prof. Jain developed has four distinct features, each designed to systematically overcome the barriers that prevent quality schooling from reaching every child.</p>
+            </div>
+
+            <div class="features-grid fade-up visible">
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="bi bi-person-check"></i></div>
+                    <div class="feat-title">Child-Centric Focus</div>
+                    <p class="feat-body">More focus on children's capability to learn rather than on enhancing the teacher's capability to teach.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="bi bi-people"></i></div>
+                    <div class="feat-title">Team-Based Teaching</div>
+                    <p class="feat-body">Reengineering the teacher's role into a four-tiered team effort, bringing curriculum design close to the classroom.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="bi bi-diagram-3"></i></div>
+                    <div class="feat-title">System Organization</div>
+                    <p class="feat-body">Taking an overall system perspective to design a school program, rather than focusing only on teaching and learning.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                    <div class="feat-title">Independent Assessment</div>
+                    <p class="feat-body">Periodic assessments by reputed external agencies (like EI using ASSET tests) to gauge effectiveness and drive continuous improvement.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="bi bi-clock-history"></i></div>
+                    <div class="feat-title">Ensuring Regularity</div>
+                    <p class="feat-body">Students stay in school by locating classes near homes, maintaining a positive environment, and providing all materials free of charge.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feat-icon"><i class="bi bi-shield-check"></i></div>
+                    <div class="feat-title">Teacher Support</div>
+                    <p class="feat-body">Teachers receive extensive program-specific training and supervisory support visits twice a week, ensuring consistent quality.</p>
+                </div>
+            </div>
+
+            <!-- 5A Framework -->
+            <div class="fivea-block fade-up pyramid-widths visible">
+                <div class="fivea-visual">
+                    <img src="https://gyanshala.org/wp-content/uploads/2023/12/approach-300x243.png" alt="5A Approach Diagram">
+                </div>
+                <div class="fivea-content">
+                    <div class="fivea-title">The 5A Implementation</div>
+                    <p class="fivea-sub">Overcoming socio-economic barriers to reach every child</p>
+                    <div class="fivea-list">
+                        <div class="fivea-item">
+                            <span class="fivea-pill">Awareness</span>
+                            <p>Behavioral change towards education through continuous community engagement and motivation.</p>
+                        </div>
+                        <div class="fivea-item">
+                            <span class="fivea-pill">Availability</span>
+                            <p>Ensuring quality schooling is present in every slum cluster, making education available to all marginalized children.</p>
+                        </div>
+                        <div class="fivea-item">
+                            <span class="fivea-pill">Accessibility</span>
+                            <p>Equitable residential education held within the community (walking distance) with suitable timings for students.</p>
+                        </div>
+                        <div class="fivea-item">
+                            <span class="fivea-pill">Affordability</span>
+                            <p>No indirect costs — books, transport, or stationeries — removing barriers for poor families.</p>
+                        </div>
+                        <div class="fivea-item">
+                            <span class="fivea-pill">Accountability</span>
+                            <p>Daily evaluations and external assessments guided by dedicated MEL staff for course correction.</p>
+                        </div>
+                    </div>
+                    <p class="fivea-closing">Our 1,200-person team — teachers, field supervisors, and curriculum designer-cum-managers — ensures implementation. Classrooms follow best practices including whole class teaching, small group activities for peer learning, and self-learning through daily workbooks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── TEAM ───────────────────────────────────────────── -->
+    <section id="team-section">
+        <div class="section-wrap">
+            <div class="team-intro fade-up visible">
+                <div class="section-label">Who We Are</div>
+                <h2 class="section-heading">Our <em>Team</em> Structure</h2>
+                <p>Gyan Shala operates through a <strong>specialized six-tier structure</strong>. This model deconstructs the traditional role of a single teacher into a team-based effort, ensuring curriculum design, field support, and classroom delivery work in perfect harmony.</p>
+            </div>
+
+            <div class="pyramid-wrap pyramid-widths fade-up visible">
+                <div class="tier tier-1" onclick="toggleTier(this)">
+                    <div style="width:100%">
+                        <div class="tier-bar">
+                            <div class="tier-label">
+                                <div class="tier-num">1</div>
+                                <span class="tier-name">CEO</span>
+                            </div>
+                            <i class="bi bi-chevron-down tier-icon"></i>
+                        </div>
+                        <div class="tier-detail">
+                            <p>Coordinate with all Team Leads to manage cross-city programs, handle donor relations, fundraise, and ensure the long-term sustainability of the organization.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tier tier-2" onclick="toggleTier(this)">
+                    <div style="width:100%">
+                        <div class="tier-bar">
+                            <div class="tier-label">
+                                <div class="tier-num">2</div>
+                                <span class="tier-name">Team Leaders</span>
+                            </div>
+                            <i class="bi bi-chevron-down tier-icon"></i>
+                        </div>
+                        <div class="tier-detail">
+                            <p>Instruct and coordinate the curriculum design teams, evaluate study materials, and serve as the vital link between academic operations and executive leadership.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tier tier-3" onclick="toggleTier(this)">
+                    <div style="width:100%">
+                        <div class="tier-bar">
+                            <div class="tier-label">
+                                <div class="tier-num">3</div>
+                                <span class="tier-name">Curriculum Designers</span>
+                            </div>
+                            <i class="bi bi-chevron-down tier-icon"></i>
+                        </div>
+                        <div class="tier-detail">
+                            <p>Architect the student workbooks and teacher guides. They transform high-level goals into daily lessons and iterate materials based on field feedback.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tier tier-4" onclick="toggleTier(this)">
+                    <div style="width:100%">
+                        <div class="tier-bar">
+                            <div class="tier-label">
+                                <div class="tier-num">4</div>
+                                <span class="tier-name">Senior Supervisors</span>
+                            </div>
+                            <i class="bi bi-chevron-down tier-icon"></i>
+                        </div>
+                        <div class="tier-detail">
+                            <p>Lead monthly supervisor meetings, prepare staff for teacher training, and bridge the gap between the Curriculum team and field implementation. They oversee supervisors and conduct regular field visits.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tier tier-5" onclick="toggleTier(this)">
+                    <div style="width:100%">
+                        <div class="tier-bar">
+                            <div class="tier-label">
+                                <div class="tier-num">5</div>
+                                <span class="tier-name">Supervisors</span>
+                            </div>
+                            <i class="bi bi-chevron-down tier-icon"></i>
+                        </div>
+                        <div class="tier-detail">
+                            <p>Provide on-ground support to teachers in conducting classes, assist with community fieldwork, and attend monthly alignment meetings to maintain instructional quality.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tier tier-6" onclick="toggleTier(this)">
+                    <div style="width:100%">
+                        <div class="tier-bar">
+                            <div class="tier-label">
+                                <div class="tier-num">6</div>
+                                <span class="tier-name">Class Teachers</span>
+                            </div>
+                            <i class="bi bi-chevron-down tier-icon"></i>
+                        </div>
+                        <div class="tier-detail">
+                            <p>Gyan Shala replaces the traditional single-teacher model with a robust "Chain of Support," ensuring our 1,200+ frontline educators are backed by layers of academic, supervisory, and strategic expertise.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-cta fade-up visible">
+                <p>While our teachers are too numerous to list, you can meet the core organization here:</p>
+                <a href="team.html" class="btn-primary">Meet Our Team <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── TRANSPARENCY ───────────────────────────────────── -->
+    <section id="transparency">
+        <div class="section-wrap">
+            <div class="transparency-card fade-up visible">
+                <div>
+                    <div class="section-label" style="color: rgba(255,255,255,.45);">
+                        <span style="background: rgba(255,255,255,.45); display:inline-block; width:20px; height:2px; margin-right:.6rem;"></span>
+                        Transparency
+                    </div>
+                    <div class="tc-title">Committed to Full Disclosure</div>
+                    <p class="tc-body">We maintain complete transparency of our financial performance and legal compliance. Access our audit reports, tax returns, and statutory documents at any time.</p>
+                </div>
+                <a href="transparency.html" class="btn-white-outline">
+                    View Reports <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Accordion tiers
+        function toggleTier(el) {
+            const isOpen = el.classList.contains('open');
+            document.querySelectorAll('.tier').forEach(t => t.classList.remove('open'));
+            if (!isOpen) el.classList.add('open');
+        }
+
+        // Scroll fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('visible'), i * 80);
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+
+
+</body></html>

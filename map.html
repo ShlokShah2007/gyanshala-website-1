@@ -1,0 +1,527 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GyanShala - Find Your Nearest Centre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root {
+    --cyan:      #29B8D8;
+    --cyan-dk:   #1A8FAA;
+    --cyan-lt:   #6FD5E8;
+    --sky:       #E8F8FC;
+    --ink:       #1C2B32;
+    --ink2:      #2C3E46;
+    --muted:     #6A8490;
+    --white:     #FFFFFF;
+    --cream:     #F4FBFD;
+    --shadow:    0 4px 24px rgba(28,43,50,.10);
+    --shadow-lg: 0 10px 40px rgba(28,43,50,.16);
+    --radius:    14px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* HEADER */
+  header {
+    background: var(--white);
+    padding: 0 32px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    border-bottom: 1.5px solid #D6EEF5;
+    box-shadow: 0 2px 16px rgba(41,184,216,.10);
+  }
+  .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+
+  /* ===================================================
+     LOGO IMAGE — paste your logo path in src below
+     =================================================== */
+  .logo-img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .brand-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--ink); line-height: 1; }
+  .brand-tagline { font-size: .68rem; font-weight: 600; letter-spacing: 2.2px; text-transform: uppercase; color: var(--cyan-dk); margin-top: 3px; }
+  .header-right { margin-left: auto; }
+  .centre-count { background: var(--sky); border: 1.5px solid var(--cyan-lt); color: var(--cyan-dk); padding: 5px 14px; border-radius: 99px; font-size: .78rem; font-weight: 600; white-space: nowrap; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink2) 60%, #1A4A5A 100%);
+    padding: 36px 32px 32px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before { content:''; position:absolute; right:-60px; top:-60px; width:320px; height:320px; background:radial-gradient(circle,rgba(41,184,216,.15) 0%,transparent 70%); pointer-events:none; }
+  .hero-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 28px; }
+
+  /* ===================================================
+     HERO LOGO — same image, larger size
+     =================================================== */
+  .hero-logo {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.92;
+    /* filter: brightness(0) invert(1);  makes logo white — remove this line if your logo is already white or light */
+  }
+
+  .hero-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem,2.5vw,2.1rem); font-weight: 700; margin-bottom: 8px; line-height: 1.25; }
+  .hero-text h2 span { color: var(--cyan-lt); }
+  .hero-text p { font-size: .9rem; opacity: .78; max-width: 480px; line-height: 1.6; }
+  .hero-stats { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--cyan-lt); line-height: 1; }
+  .stat-label { font-size: .7rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: .65; }
+
+  /* SEARCH */
+  .search-strip {
+    background: var(--white);
+    border-bottom: 1.5px solid #D6EEF5;
+    padding: 14px 32px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-strip input, .search-strip select {
+    flex: 1; min-width: 180px; padding: 11px 16px;
+    border: 1.5px solid #C8E8F0; border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif; font-size: .88rem;
+    background: var(--cream); color: var(--ink); outline: none;
+    transition: border .2s, box-shadow .2s;
+  }
+  .search-strip input:focus, .search-strip select:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(41,184,216,.12); background:#fff; }
+  .search-strip button {
+    padding: 11px 22px; background: var(--cyan); color: #fff; border: none;
+    border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: .88rem;
+    font-weight: 600; cursor: pointer; transition: background .2s, transform .15s; white-space: nowrap;
+  }
+  .search-strip button:hover { background: var(--cyan-dk); transform: translateY(-1px); }
+  .btn-reset { background: transparent !important; color: var(--muted) !important; border: 1.5px solid #C8E8F0 !important; }
+  .btn-reset:hover { background: var(--sky) !important; transform: none !important; }
+
+  /* LAYOUT */
+  .main { flex:1; display:grid; grid-template-columns:350px 1fr; gap:20px; padding:20px 32px 32px; }
+  .sidebar { display: flex; flex-direction: column; gap: 10px; }
+  .results-label { font-size:.72rem; text-transform:uppercase; letter-spacing:2px; color:var(--muted); font-weight:700; padding:0 2px; }
+  .cards-scroll { display:flex; flex-direction:column; gap:10px; max-height:590px; overflow-y:auto; padding-right:4px; }
+  .cards-scroll::-webkit-scrollbar { width:4px; }
+  .cards-scroll::-webkit-scrollbar-thumb { background:#C0DCE5; border-radius:4px; }
+
+  /* CARDS */
+  .location-card {
+    background: var(--white); border-radius: var(--radius); padding: 15px 16px;
+    box-shadow: var(--shadow); cursor: pointer; border: 1.5px solid transparent;
+    transition: border .2s, transform .2s, box-shadow .2s;
+    animation: fadeUp .3s ease both;
+  }
+  .location-card:hover { border-color: var(--cyan-lt); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .location-card.active { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(41,184,216,.15), var(--shadow-lg); }
+  .card-header { display:flex; align-items:flex-start; gap:10px; margin-bottom:8px; }
+
+  /* ===================================================
+     CARD ICON — logo thumbnail inside each card
+     =================================================== */
+  .card-icon {
+    width: 34px; height: 34px;
+    background: var(--sky);
+    border-radius: 9px;
+    border: 1px solid #C8E8F0;
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    padding: 4px;
+  }
+  .card-icon img { width: 100%; height: 100%; object-fit: contain; }
+
+  .card-name { font-family:'Playfair Display',serif; font-size:.98rem; font-weight:700; color:var(--ink); line-height:1.3; }
+  .state-badge { display:inline-block; background:var(--sky); color:var(--cyan-dk); font-size:.63rem; font-weight:700; padding:2px 8px; border-radius:99px; letter-spacing:.8px; text-transform:uppercase; margin-top:3px; border:1px solid #B8DDE8; }
+  .card-addr { font-size:.8rem; color:var(--muted); line-height:1.55; margin-bottom:8px; padding-left:44px; }
+  .card-meta { display:flex; gap:10px; font-size:.76rem; flex-wrap:wrap; padding-left:44px; margin-bottom:10px; color: var(--muted); }
+  .dir-btn { margin-left:44px; display:inline-flex; align-items:center; gap:5px; padding:6px 14px; background:var(--cyan); color:#fff; border-radius:8px; font-size:.76rem; font-weight:600; text-decoration:none; transition:background .2s; }
+  .dir-btn:hover { background:var(--cyan-dk); }
+
+  /* MAP */
+  .map-wrap { border-radius:18px; overflow:hidden; box-shadow:var(--shadow-lg); border:1.5px solid #C8E8F0; min-height:560px; }
+  #map { width:100%; height:100%; min-height:560px; }
+
+  /* LEAFLET POPUP */
+  .leaflet-popup-content-wrapper { border-radius:14px !important; font-family:'DM Sans',sans-serif; padding:0 !important; overflow:hidden; border:1.5px solid #C8E8F0 !important; box-shadow:0 8px 32px rgba(28,43,50,.18) !important; }
+  .leaflet-popup-content { margin:0 !important; width:auto !important; }
+  .popup-head { background:linear-gradient(120deg,#1C2B32 0%,#2C3E46 100%); padding:13px 16px 10px; display:flex; align-items:center; gap:10px; }
+
+  /* ===================================================
+     POPUP LOGO — logo inside map popup header
+     =================================================== */
+  .popup-logo {
+    width: 30px; height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+    /* filter: brightness(0) invert(1);  white version — remove if logo already light */
+  }
+
+  .popup-name { font-family:'Playfair Display',serif; font-size:.95rem; font-weight:700; color:#fff; line-height:1.2; }
+  .popup-state { font-size:.65rem; color:#6FD5E8; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-top:2px; }
+  .popup-body { padding:13px 16px; min-width:240px; }
+  .popup-row { display:flex; align-items:flex-start; gap:7px; font-size:.8rem; color:#6A8490; margin-bottom:6px; line-height:1.45; }
+  .popup-dir { margin-top:12px; display:flex; align-items:center; justify-content:center; gap:5px; padding:8px 16px; background:var(--cyan); color:#fff; border-radius:8px; font-size:.8rem; font-weight:600; text-decoration:none; transition:background .2s; }
+  .popup-dir:hover { background:#1A8FAA; }
+
+  footer { text-align:center; padding:16px; font-size:.76rem; color:var(--muted); border-top:1.5px solid #D6EEF5; background:var(--white); }
+  footer strong { color:var(--cyan-dk); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+  @media (max-width:800px) {
+    .main { grid-template-columns:1fr; padding:14px 16px 24px; }
+    .cards-scroll { max-height:320px; }
+    header, .search-strip, .hero { padding-left:16px; padding-right:16px; }
+    .hero-logo { height: 56px; }
+    .hero-inner { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- =====================================================
+     HEADER
+     Replace  YOUR_LOGO_PATH  with your image path
+     e.g.  src="images/gyanshala-logo.png"
+          or  src="/assets/logo.svg"
+          or  src="https://yoursite.com/logo.png"
+===================================================== -->
+<header>
+  <a class="header-logo" href="#">
+    <img class="logo-img" src="Screenshot 2026-05-27 103143.png" alt="GyanShala logo">
+    <div>
+      <div class="brand-name">GyanShala</div>
+      <div class="brand-tagline">Education for Every Child</div>
+    </div>
+  </a>
+  <div class="header-right">
+    <div class="centre-count" id="headerCount">12 Centres across India</div>
+  </div>
+</header>
+
+<!-- =====================================================
+     HERO SECTION
+     Same logo path — used larger here
+     NOTE: filter:invert makes it white on dark bg.
+     If your logo is already white/light, remove
+     the filter from  .hero-logo  in the CSS above.
+===================================================== -->
+<div class="hero">
+  <div class="hero-inner">
+    <img class="hero-logo" src="Screenshot 2026-05-27 103143.png" alt="GyanShala">
+    <div class="hero-text">
+      <h2>Find Your Nearest<br><span>GyanShala Centre</span></h2>
+      <p>Quality education centres across India — locate the one closest to your home and give your child the gift of learning.</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num" id="statCentres">12</div><div class="stat-label">Centres</div></div>
+        <div class="stat"><div class="stat-num" id="statStates">10</div><div class="stat-label">States</div></div>
+        <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Dreams</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-strip">
+  <input type="text" id="searchInput" placeholder="Search by city or centre name..." oninput="filterLocations()">
+  <select id="stateFilter" onchange="filterLocations()"><option value="">All States</option><option value="Bihar">Bihar</option><option value="Delhi">Delhi</option><option value="Gujarat">Gujarat</option><option value="Madhya Pradesh">Madhya Pradesh</option><option value="Maharashtra">Maharashtra</option><option value="Rajasthan">Rajasthan</option><option value="Tamil Nadu">Tamil Nadu</option><option value="Telangana">Telangana</option><option value="Uttar Pradesh">Uttar Pradesh</option><option value="West Bengal">West Bengal</option></select>
+  <button onclick="filterLocations()">Search</button>
+  <button class="btn-reset" onclick="resetFilters()">Reset</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="sidebar">
+    <div class="results-label" id="resultsLabel">All 12 Centres</div>
+    <div class="cards-scroll" id="cardContainer"><div class="location-card" style="animation-delay: 0s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Ahmedabad Central</div><span class="state-badge">Gujarat</span></div></div><div class="card-addr">📍 12, Manek Chowk Road, Shahpur, Ahmedabad - 380001</div><div class="card-meta">📞 +91 98765 43210 &nbsp;&nbsp; 🕐 Mon-Sat, 8am-6pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=23.0225,72.5714">Get Directions</a></div><div class="location-card" style="animation-delay: 0.04s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Surat East</div><span class="state-badge">Gujarat</span></div></div><div class="card-addr">📍 47, Ring Road, Varachha, Surat - 395006</div><div class="card-meta">📞 +91 97654 32109 &nbsp;&nbsp; 🕐 Mon-Sat, 9am-5pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=21.1702,72.8311">Get Directions</a></div><div class="location-card" style="animation-delay: 0.08s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Mumbai Dharavi</div><span class="state-badge">Maharashtra</span></div></div><div class="card-addr">📍 Plot 9, 90 Feet Road, Dharavi, Mumbai - 400017</div><div class="card-meta">📞 +91 98234 11200 &nbsp;&nbsp; 🕐 Mon-Sat, 8am-7pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=19.0412,72.8536">Get Directions</a></div><div class="location-card" style="animation-delay: 0.12s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Pune Hadapsar</div><span class="state-badge">Maharashtra</span></div></div><div class="card-addr">📍 77, Magarpatta Road, Hadapsar, Pune - 411028</div><div class="card-meta">📞 +91 91234 56789 &nbsp;&nbsp; 🕐 Mon-Fri, 9am-5pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=18.5074,73.9242">Get Directions</a></div><div class="location-card" style="animation-delay: 0.16s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Delhi Yamuna Paar</div><span class="state-badge">Delhi</span></div></div><div class="card-addr">📍 22B, Loni Road, Mustafabad, Delhi - 110094</div><div class="card-meta">📞 +91 99100 22334 &nbsp;&nbsp; 🕐 Mon-Sat, 8am-6pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=28.7041,77.209">Get Directions</a></div><div class="location-card" style="animation-delay: 0.2s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Jaipur Mansarovar</div><span class="state-badge">Rajasthan</span></div></div><div class="card-addr">📍 5, Shanti Path, Mansarovar, Jaipur - 302020</div><div class="card-meta">📞 +91 94001 55678 &nbsp;&nbsp; 🕐 Tue-Sun, 9am-5pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=26.8742,75.8051">Get Directions</a></div><div class="location-card" style="animation-delay: 0.24s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Lucknow Alambagh</div><span class="state-badge">Uttar Pradesh</span></div></div><div class="card-addr">📍 14, Alambagh, Near Bus Stand, Lucknow - 226005</div><div class="card-meta">📞 +91 98012 34567 &nbsp;&nbsp; 🕐 Mon-Sat, 8am-5pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=26.8467,80.9462">Get Directions</a></div><div class="location-card" style="animation-delay: 0.28s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Patna Phulwari</div><span class="state-badge">Bihar</span></div></div><div class="card-addr">📍 8, Phulwari Sharif, Near Railway Crossing, Patna - 801505</div><div class="card-meta">📞 +91 97001 12345 &nbsp;&nbsp; 🕐 Mon-Sat, 8am-6pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=25.5941,85.1376">Get Directions</a></div><div class="location-card" style="animation-delay: 0.32s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Bhopal Govindpura</div><span class="state-badge">Madhya Pradesh</span></div></div><div class="card-addr">📍 C-12, Govindpura Industrial Area, Bhopal - 462023</div><div class="card-meta">📞 +91 95023 45678 &nbsp;&nbsp; 🕐 Mon-Fri, 9am-5pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=23.2599,77.4126">Get Directions</a></div><div class="location-card" style="animation-delay: 0.36s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Hyderabad Old City</div><span class="state-badge">Telangana</span></div></div><div class="card-addr">📍 Near Charminar, Laad Bazaar, Hyderabad - 500002</div><div class="card-meta">📞 +91 93001 67890 &nbsp;&nbsp; 🕐 Mon-Sat, 9am-6pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=17.3605,78.4743">Get Directions</a></div><div class="location-card" style="animation-delay: 0.4s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Chennai Tondiarpet</div><span class="state-badge">Tamil Nadu</span></div></div><div class="card-addr">📍 34, VOC Street, Tondiarpet, Chennai - 600081</div><div class="card-meta">📞 +91 98400 11223 &nbsp;&nbsp; 🕐 Mon-Sat, 8am-5pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=13.0827,80.2707">Get Directions</a></div><div class="location-card" style="animation-delay: 0.44s;"><div class="card-header"><div class="card-icon"><img src="Screenshot 2026-05-27 103143.png" alt="GyanShala"></div><div><div class="card-name">GyanShala Kolkata Ultadanga</div><span class="state-badge">West Bengal</span></div></div><div class="card-addr">📍 7, Ultadanga Main Road, Kolkata - 700067</div><div class="card-meta">📞 +91 97300 44556 &nbsp;&nbsp; 🕐 Mon-Sat, 9am-5pm</div><a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&amp;query=22.5726,88.3639">Get Directions</a></div></div>
+  </div>
+  <div class="map-wrap"><div id="map" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-287px, -4px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 19; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" src="https://a.basemaps.cartocdn.com/light_all/5/23/13@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(510px, 38px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/light_all/5/23/14@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(510px, 294px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/light_all/5/22/13@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(254px, 38px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/light_all/5/24/13@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(766px, 38px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/light_all/5/22/14@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(254px, 294px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/light_all/5/24/14@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(766px, 294px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/light_all/5/23/12@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(510px, -218px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/light_all/5/23/15@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(510px, 550px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/light_all/5/22/12@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(254px, -218px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/light_all/5/24/12@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(766px, -218px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/light_all/5/22/15@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(254px, 550px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/light_all/5/24/15@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(766px, 550px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/light_all/5/21/13@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-2px, 38px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/light_all/5/25/13@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1022px, 38px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/light_all/5/21/14@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-2px, 294px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/light_all/5/25/14@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1022px, 294px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/light_all/5/21/12@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-2px, -218px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/light_all/5/25/12@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1022px, -218px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/light_all/5/21/15@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-2px, 550px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/light_all/5/25/15@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1022px, 550px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-marker-pane"><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(369px, 267px, 0px); z-index: 267;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="Screenshot 2026-05-27 103143.png" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(375px, 313px, 0px); z-index: 313;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="Screenshot 2026-05-27 103143.png" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(376px, 365px, 0px); z-index: 365;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="Screenshot 2026-05-27 103143.png" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(400px, 377px, 0px); z-index: 377;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="Screenshot 2026-05-27 103143.png" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(475px, 124px, 0px); z-index: 124;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="Screenshot 2026-05-27 103143.png" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(443px, 171px, 0px); z-index: 171;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="YOUR_LOGO_PATH" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(560px, 171px, 0px); z-index: 171;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="YOUR_LOGO_PATH" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(655px, 203px, 0px); z-index: 203;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="YOUR_LOGO_PATH" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(480px, 262px, 0px); z-index: 262;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="YOUR_LOGO_PATH" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(504px, 405px, 0px); z-index: 405;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="YOUR_LOGO_PATH" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(545px, 506px, 0px); z-index: 506;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="YOUR_LOGO_PATH" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div><div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -22px; margin-top: -56px; width: 44px; height: 56px; transform: translate3d(729px, 279px, 0px); z-index: 279;"><div style="position:relative;width:44px;height:56px;"><svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0"><filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"></feDropShadow></filter><path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="#ffffff" stroke="#C8E8F0" stroke-width="2" filter="url(#ps)"></path></svg><div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;"><img src="YOUR_LOGO_PATH" style="width:100%;height:100%;object-fit:contain;" alt=""></div></div></div></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(5926.5px, 3600.5px, 0px) scale(16);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true">+</span></a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true">|</span> (c) OpenStreetMap (c) CARTO</div></div></div></div></div>
+</div>
+
+<footer>© 2024 <strong>GyanShala</strong> — Empowering futures, one child at a time.</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+
+/* =====================================================
+   LOGO PATH FOR MAP PINS & POPUPS
+   Change this one variable — it updates everywhere
+===================================================== */
+const LOGO_PATH = "Screenshot 2026-05-27 103143.png";
+
+
+/* =====================================================
+   GYANSHALA LOCATIONS
+   -------------------------------------------------------
+   HOW TO ADD A NEW CENTRE:
+   1. Copy one { } block
+   2. Paste inside the array with a comma
+   3. Fill in the details
+   4. lat & lng -> right-click on Google Maps,
+      click the coordinates that appear to copy them
+===================================================== */
+const LOCATIONS = [
+  {
+    name:    "GyanShala Ahmedabad Central",
+    state:   "Gujarat",
+    city:    "Ahmedabad",
+    address: "12, Manek Chowk Road, Shahpur, Ahmedabad - 380001",
+    phone:   "+91 98765 43210",
+    timing:  "Mon-Sat, 8am-6pm",
+    lat:     23.0225,
+    lng:     72.5714,
+  },
+  {
+    name:    "GyanShala Surat East",
+    state:   "Gujarat",
+    city:    "Surat",
+    address: "47, Ring Road, Varachha, Surat - 395006",
+    phone:   "+91 97654 32109",
+    timing:  "Mon-Sat, 9am-5pm",
+    lat:     21.1702,
+    lng:     72.8311,
+  },
+  {
+    name:    "GyanShala Mumbai Dharavi",
+    state:   "Maharashtra",
+    city:    "Mumbai",
+    address: "Plot 9, 90 Feet Road, Dharavi, Mumbai - 400017",
+    phone:   "+91 98234 11200",
+    timing:  "Mon-Sat, 8am-7pm",
+    lat:     19.0412,
+    lng:     72.8536,
+  },
+  {
+    name:    "GyanShala Pune Hadapsar",
+    state:   "Maharashtra",
+    city:    "Pune",
+    address: "77, Magarpatta Road, Hadapsar, Pune - 411028",
+    phone:   "+91 91234 56789",
+    timing:  "Mon-Fri, 9am-5pm",
+    lat:     18.5074,
+    lng:     73.9242,
+  },
+  {
+    name:    "GyanShala Delhi Yamuna Paar",
+    state:   "Delhi",
+    city:    "Delhi",
+    address: "22B, Loni Road, Mustafabad, Delhi - 110094",
+    phone:   "+91 99100 22334",
+    timing:  "Mon-Sat, 8am-6pm",
+    lat:     28.7041,
+    lng:     77.2090,
+  },
+  {
+    name:    "GyanShala Jaipur Mansarovar",
+    state:   "Rajasthan",
+    city:    "Jaipur",
+    address: "5, Shanti Path, Mansarovar, Jaipur - 302020",
+    phone:   "+91 94001 55678",
+    timing:  "Tue-Sun, 9am-5pm",
+    lat:     26.8742,
+    lng:     75.8051,
+  },
+  {
+    name:    "GyanShala Lucknow Alambagh",
+    state:   "Uttar Pradesh",
+    city:    "Lucknow",
+    address: "14, Alambagh, Near Bus Stand, Lucknow - 226005",
+    phone:   "+91 98012 34567",
+    timing:  "Mon-Sat, 8am-5pm",
+    lat:     26.8467,
+    lng:     80.9462,
+  },
+  {
+    name:    "GyanShala Patna Phulwari",
+    state:   "Bihar",
+    city:    "Patna",
+    address: "8, Phulwari Sharif, Near Railway Crossing, Patna - 801505",
+    phone:   "+91 97001 12345",
+    timing:  "Mon-Sat, 8am-6pm",
+    lat:     25.5941,
+    lng:     85.1376,
+  },
+  {
+    name:    "GyanShala Bhopal Govindpura",
+    state:   "Madhya Pradesh",
+    city:    "Bhopal",
+    address: "C-12, Govindpura Industrial Area, Bhopal - 462023",
+    phone:   "+91 95023 45678",
+    timing:  "Mon-Fri, 9am-5pm",
+    lat:     23.2599,
+    lng:     77.4126,
+  },
+  {
+    name:    "GyanShala Hyderabad Old City",
+    state:   "Telangana",
+    city:    "Hyderabad",
+    address: "Near Charminar, Laad Bazaar, Hyderabad - 500002",
+    phone:   "+91 93001 67890",
+    timing:  "Mon-Sat, 9am-6pm",
+    lat:     17.3605,
+    lng:     78.4743,
+  },
+  {
+    name:    "GyanShala Chennai Tondiarpet",
+    state:   "Tamil Nadu",
+    city:    "Chennai",
+    address: "34, VOC Street, Tondiarpet, Chennai - 600081",
+    phone:   "+91 98400 11223",
+    timing:  "Mon-Sat, 8am-5pm",
+    lat:     13.0827,
+    lng:     80.2707,
+  },
+  {
+    name:    "GyanShala Kolkata Ultadanga",
+    state:   "West Bengal",
+    city:    "Kolkata",
+    address: "7, Ultadanga Main Road, Kolkata - 700067",
+    phone:   "+91 97300 44556",
+    timing:  "Mon-Sat, 9am-5pm",
+    lat:     22.5726,
+    lng:     88.3639,
+  },
+];
+
+/* MAP */
+const map = L.map('map').setView([22.5, 80], 5);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+  attribution:'(c) OpenStreetMap (c) CARTO', maxZoom:19
+}).addTo(map);
+
+/* CUSTOM MAP PIN using real logo image */
+function makePin(active) {
+  const bg   = active ? '#1A4A5A' : '#ffffff';
+  const ring = active ? '#29B8D8' : '#C8E8F0';
+  /* The logo is placed inside the pin teardrop shape */
+  const html =
+    '<div style="position:relative;width:44px;height:56px;">' +
+      '<svg width="44" height="56" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0">' +
+        '<filter id="ps"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(28,43,50,.28)"/></filter>' +
+        '<path d="M22 2C12.06 2 4 10.06 4 20C4 33 22 54 22 54S40 33 40 20C40 10.06 31.94 2 22 2Z" fill="' + bg + '" stroke="' + ring + '" stroke-width="2" filter="url(#ps)"/>' +
+      '</svg>' +
+      '<div style="position:absolute;top:5px;left:7px;width:30px;height:30px;border-radius:50%;overflow:hidden;background:#E8F8FC;display:flex;align-items:center;justify-content:center;padding:3px;">' +
+        '<img src="' + LOGO_PATH + '" style="width:100%;height:100%;object-fit:contain;" alt=""/>' +
+      '</div>' +
+    '</div>';
+  return L.divIcon({ className:'', html:html, iconSize:[44,56], iconAnchor:[22,56], popupAnchor:[0,-54] });
+}
+
+/* POPUP */
+function buildPopup(loc) {
+  return '<div style="font-family:DM Sans,sans-serif">' +
+    '<div style="background:linear-gradient(120deg,#1C2B32,#2C3E46);padding:12px 16px;display:flex;align-items:center;gap:10px">' +
+      '<img src="' + LOGO_PATH + '" style="width:28px;height:28px;object-fit:contain;flex-shrink:0;filter:brightness(0) invert(1)" alt=""/>' +
+      '<div>' +
+        '<div style="font-family:Playfair Display,serif;font-size:.95rem;font-weight:700;color:#fff;line-height:1.2">' + loc.name + '</div>' +
+        '<div style="font-size:.65rem;color:#6FD5E8;text-transform:uppercase;letter-spacing:1.5px;margin-top:2px">' + loc.city + ' &middot; ' + loc.state + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="padding:13px 16px;min-width:240px">' +
+      '<div style="display:flex;gap:7px;font-size:.8rem;color:#6A8490;margin-bottom:6px;line-height:1.45">' +
+        '<svg width="13" height="13" style="flex-shrink:0;margin-top:1px" viewBox="0 0 24 24" fill="none" stroke="#29B8D8" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>' +
+        loc.address +
+      '</div>' +
+      '<div style="display:flex;gap:7px;font-size:.8rem;color:#6A8490;margin-bottom:6px">' +
+        '<svg width="13" height="13" style="flex-shrink:0;margin-top:1px" viewBox="0 0 24 24" fill="none" stroke="#29B8D8" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-4-4 19.79 19.79 0 01-3.07-8.67A2 2 0 016.55 5h3a2 2 0 012 1.72c.127.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L10.09 13a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>' +
+        loc.phone +
+      '</div>' +
+      '<div style="display:flex;gap:7px;font-size:.8rem;color:#6A8490;margin-bottom:6px">' +
+        '<svg width="13" height="13" style="flex-shrink:0;margin-top:1px" viewBox="0 0 24 24" fill="none" stroke="#29B8D8" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+        loc.timing +
+      '</div>' +
+      '<a href="https://www.google.com/maps/search/?api=1&query=' + loc.lat + ',' + loc.lng + '" target="_blank" ' +
+        'style="margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 16px;background:#29B8D8;color:#fff;border-radius:8px;font-size:.8rem;font-weight:600;text-decoration:none">' +
+        'Get Directions on Google Maps' +
+      '</a>' +
+    '</div>' +
+  '</div>';
+}
+
+/* STATE DROPDOWN */
+const allStates = [...new Set(LOCATIONS.map(l=>l.state))].sort();
+const sel = document.getElementById('stateFilter');
+allStates.forEach(s=>{ const o=document.createElement('option'); o.value=s; o.textContent=s; sel.appendChild(o); });
+document.getElementById('statStates').textContent = allStates.length;
+
+let markers = [], filtered = [...LOCATIONS];
+
+function renderAll() {
+  markers.forEach(m=>map.removeLayer(m)); markers=[];
+  document.getElementById('cardContainer').innerHTML='';
+  const cnt = filtered.length;
+  document.getElementById('resultsLabel').textContent = cnt===LOCATIONS.length ? 'All '+cnt+' Centres' : cnt+' Centre'+(cnt!==1?'s':'')+' Found';
+  document.getElementById('headerCount').textContent = LOCATIONS.length+' Centres across India';
+
+  filtered.forEach((loc, i) => {
+    const m = L.marker([loc.lat, loc.lng], {icon: makePin(false)})
+      .addTo(map).bindPopup(buildPopup(loc), {maxWidth:300, minWidth:260});
+    m.on('click', ()=>activateCard(i));
+    markers.push(m);
+
+    const card = document.createElement('div');
+    card.className = 'location-card';
+    card.style.animationDelay = (i*0.04)+'s';
+    card.innerHTML =
+      '<div class="card-header">' +
+        '<div class="card-icon"><img src="' + LOGO_PATH + '" alt="GyanShala"/></div>' +
+        '<div>' +
+          '<div class="card-name">' + loc.name + '</div>' +
+          '<span class="state-badge">' + loc.state + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="card-addr">&#128205; ' + loc.address + '</div>' +
+      '<div class="card-meta">&#128222; ' + loc.phone + ' &nbsp;&nbsp; &#128336; ' + loc.timing + '</div>' +
+      '<a class="dir-btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=' + loc.lat + ',' + loc.lng + '">Get Directions</a>';
+    card.addEventListener('click', ()=>activateCard(i));
+    document.getElementById('cardContainer').appendChild(card);
+  });
+
+  if (filtered.length > 0)
+    map.fitBounds(L.featureGroup(markers).getBounds().pad(0.15));
+}
+
+function activateCard(i) {
+  document.querySelectorAll('.location-card').forEach((c,ci)=>c.classList.toggle('active',ci===i));
+  markers.forEach((m,mi)=>m.setIcon(makePin(mi===i)));
+  markers[i].openPopup();
+  map.panTo([filtered[i].lat, filtered[i].lng], {animate:true, duration:.7});
+  document.querySelectorAll('.location-card')[i]?.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function filterLocations() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const s = document.getElementById('stateFilter').value;
+  filtered = LOCATIONS.filter(l =>
+    (!q || l.name.toLowerCase().includes(q) || l.city.toLowerCase().includes(q) || l.address.toLowerCase().includes(q)) &&
+    (!s || l.state === s)
+  );
+  renderAll();
+}
+
+function resetFilters() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('stateFilter').value = '';
+  filtered = [...LOCATIONS];
+  renderAll();
+}
+
+renderAll();
+</script>
+
+</body></html>

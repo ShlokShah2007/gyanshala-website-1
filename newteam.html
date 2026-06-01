@@ -1,0 +1,2462 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Gyan Shala</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-color: #00afef;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #edf2f7;
+            --bg-light: #f8f9fa;
+        }
+
+        .tab-pane.fade {
+            transition: opacity 0.25s ease-in-out;
+        }
+
+        .trustee-full-card,
+        .board-card,
+        .Management-card {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease;
+        }
+
+        .trustee-photo-container,
+        .board-photo-container,
+        .Management-photo-container {
+            flex: 0 0 150px;
+            height: 150px;
+            background-color: var(--bg-light);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            margin-right: 2rem;
+            overflow: hidden;
+        }
+
+        .trustee-photo-container img,
+        .board-photo-container img,
+        .Management-photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trustee-info,
+        .board-info,
+        .Management-info {
+            flex: 1;
+        }
+
+        .trustee-name,
+        .board-name,
+        .Management-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .trustee-meta,
+        .board-meta,
+        .Management-meta {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .trustee-year,
+        .board-year {
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-left: 10px;
+            padding-left: 10px;
+            border-left: 1px solid #cbd5e0;
+        }
+
+        .trustee-bio,
+        .board-bio,
+        .Management-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+
+        /* --- 4. Responsive Logic --- */
+        @media (max-width: 768px) {
+
+            .trustee-full-card,
+            .board-card,
+            .Management-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .trustee-photo-container,
+            .board-photo-container,
+            .Management-photo-container {
+                margin-right: 0;
+                margin-bottom: 1.5rem;
+                flex: 0 0 120px;
+                width: 120px;
+                height: 120px;
+            }
+
+            .trustee-meta,
+            .board-meta,
+            .Management-meta {
+                justify-content: center;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .trustee-year,
+            .board-year {
+                border-left: none;
+                margin-left: 0;
+                padding-left: 0;
+            }
+
+            .trustee-bio,
+            .board-bio,
+            .Management-bio {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 991px) {
+
+            .trustee-photo-container,
+            .board-photo-container,
+            .Management-photo-container {
+                flex: 0 0 120px;
+                height: 120px;
+                margin-right: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .trustee-full-card,
+            .board-card,
+            .Management-card {
+                flex-direction: column !important;
+                text-align: center !important;
+                align-items: center;
+                padding: 1.25rem !important;
+            }
+
+            .trustee-photo-container,
+            .board-photo-container,
+            .Management-photo-container {
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: 1 / 1;
+                margin-right: 0 !important;
+                margin-bottom: 1.5rem !important;
+                flex: none !important;
+                /* border-radius: 8px; */
+            }
+
+            .trustee-photo-container img,
+            .board-photo-container img,
+            .Management-photo-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .trustee-info,
+            .board-info,
+            .Management-info {
+                text-align: left;
+            }
+
+            .trustee-meta,
+            .board-meta,
+            .Management-meta {
+                justify-content: center !important;
+                flex-direction: column;
+                /* flex-wrap: wrap; */
+                gap: 5px;
+                margin-bottom: 1rem;
+            }
+
+            .trustee-year,
+            .board-year,
+            .Management-year {
+                border-left: none !important;
+                margin-left: 0 !important;
+                padding-left: 0 !important;
+                font-size: 0.85rem;
+            }
+
+            .trustee-name,
+            .board-name,
+            .Management-name {
+                text-align: center;
+            }
+        }
+
+        /* ---- Photo Placeholder ---- */
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e8f7fd 0%, #d0eef9 100%);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 2rem;
+            gap: 6px;
+        }
+        .photo-placeholder span {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .trustee-photo-container img[src=""],
+        .board-photo-container img[src=""],
+        .Management-photo-container img[src=""] {
+            display: none;
+        }
+        .trustee-photo-container:has(img[src=""]),
+        .board-photo-container:has(img[src=""]),
+        .Management-photo-container:has(img[src=""]) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ---- Vertical Program Tabs (inside state panes) ---- */
+        .state-layout {
+            display: flex;
+            gap: 0;
+            min-height: 400px;
+        }
+        .program-tabs-sidebar {
+            flex: 0 0 180px;
+            background: #f8fafc;
+            border-radius: 14px 0 0 14px;
+            border: 1px solid var(--border-color);
+            border-right: none;
+            padding: 12px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-self: flex-start;
+            position: sticky;
+            top: 80px;
+        }
+        .program-tabs-sidebar .prog-tab-btn {
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 10px 16px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            line-height: 1.3;
+            border-radius: 0 8px 8px 0;
+            margin-right: 8px;
+        }
+        .program-tabs-sidebar .prog-tab-btn:hover {
+            color: var(--primary-color);
+            background: rgba(0,175,239,0.06);
+            border-left-color: rgba(0,175,239,0.3);
+        }
+        .program-tabs-sidebar .prog-tab-btn.active {
+            color: var(--primary-color);
+            background: rgba(0,175,239,0.1);
+            border-left-color: var(--primary-color);
+        }
+        .program-content-area {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 0 14px 14px 0;
+            padding: 1.5rem;
+            min-width: 0;
+        }
+        .prog-pane { display: none; }
+        .prog-pane.active { display: block; }
+
+        @media (max-width: 768px) {
+            .state-layout {
+                flex-direction: column;
+            }
+            .program-tabs-sidebar {
+                flex: none;
+                flex-direction: row;
+                flex-wrap: wrap;
+                border-radius: 14px 14px 0 0;
+                border-right: 1px solid var(--border-color);
+                border-bottom: none;
+                padding: 10px;
+                gap: 6px;
+                position: static;
+            }
+            .program-tabs-sidebar .prog-tab-btn {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                border-radius: 8px;
+                padding: 7px 12px;
+                font-size: 0.78rem;
+                margin-right: 0;
+            }
+            .program-tabs-sidebar .prog-tab-btn.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--primary-color);
+                background: rgba(0,175,239,0.1);
+            }
+            .program-content-area {
+                border-radius: 0 0 14px 14px;
+            }
+        }
+
+        .compact-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .compact-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .compact-card .name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .compact-card .role {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .compact-card .qual {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+
+        /* ---- Photo in compact-card & team-card ---- */
+        .compact-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .compact-card .card-photo {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #e8f7fd 0%, #d0eef9 100%);
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .compact-card .card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .compact-card .card-photo .ph-icon {
+            color: var(--primary-color);
+            opacity: 0.45;
+            width: 42px;
+            height: 42px;
+        }
+        .compact-card .card-photo .ph-initials {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            margin-top: 6px;
+            opacity: 0.7;
+        }
+
+        .team-card {
+            position: relative;
+        }
+        .team-card .card-photo {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #e8f7fd 0%, #d0eef9 100%);
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+        .team-card .card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .team-card .card-photo .ph-icon {
+            color: var(--primary-color);
+            opacity: 0.45;
+            width: 42px;
+            height: 42px;
+        }
+        .team-card .card-photo .ph-initials {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            margin-top: 6px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-load"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="about-hero" class="text-white py-5 mb-5" style="min-height: 40vh;">
+            <div class="container py-5 text-center">
+                <h1 class="display-4 fw-bold mb-3">Our Team</h1>
+                <p class="lead mb-0 opacity-75 mx-auto" style="max-width: 700px;">
+                    The people behind Gyan Shala's mission to provide quality education for all.
+                </p>
+            </div>
+        </section>
+
+        <div class="container px-3 px-md-5 mt-n5">
+            <!-- Team Tabs Navigation -->
+            <div class="tabs-nav-container shadow-sm" style="margin-top: -40px; position: relative; z-index: 10;">
+                <ul class="nav custom-pill-tabs justify-content-center" id="teamTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="trustees-tab" data-bs-toggle="pill" data-bs-target="#trustees-pane" type="button" role="tab" aria-selected="true">Trustees</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="governing-tab" data-bs-toggle="pill" data-bs-target="#governing-pane" type="button" role="tab" aria-selected="false" tabindex="-1">Board</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="management-tab" data-bs-toggle="pill" data-bs-target="#Management-pane" type="button" role="tab" aria-selected="false" tabindex="-1">Management</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="gujarat-tab" data-bs-toggle="pill" data-bs-target="#gujarat-pane" type="button" role="tab" aria-selected="false" tabindex="-1">Gujarat</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="bihar-tab" data-bs-toggle="pill" data-bs-target="#bihar-pane" type="button" role="tab" aria-selected="false" tabindex="-1">Bihar</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="up-tab" data-bs-toggle="pill" data-bs-target="#up-pane" type="button" role="tab" aria-selected="false" tabindex="-1">Uttar Pradesh</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="haryana-tab" data-bs-toggle="pill" data-bs-target="#haryana-pane" type="button" role="tab" aria-selected="false" tabindex="-1">Haryana</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content" id="teamTabContent">
+                <!-- Trustees Section -->
+                <section id="trustees-pane" class="mb-5 py-5 tab-pane fade show active" role="tabpanel" aria-labelledby="trustees-tab">
+                    <div class="container">
+
+                        <div class="trustee-full-card shadow-sm">
+                            <div class="trustee-photo-container">
+                                <img src="./media/images/pankaj jain.jpg" alt="Pankaj Jain" class="img-fluid">
+                            </div>
+                            <div class="trustee-info">
+                                <div class="trustee-header">
+                                    <h3 class="trustee-name">Dr. Pankaj Jain</h3>
+                                    <div class="trustee-meta">
+                                        Founder &amp; Trustee <span class="trustee-year">Since 1996</span>
+                                    </div>
+                                </div>
+                                <p class="trustee-bio">BE (IITR), Ph.D. (IIMA), Faculty (IRMA) 1982–94, visiting Faculty
+                                    in UK/USA leading universities, international development consultant
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="trustee-full-card shadow-sm">
+                            <div class="trustee-photo-container">
+                                <img src="./media/images/8620.jpg" alt="Ajay Pandey" class="img-fluid">
+                            </div>
+                            <div class="trustee-info">
+                                <div class="trustee-header">
+                                    <h3 class="trustee-name">Prof. Ajay Pandey</h3>
+                                    <div class="trustee-meta">
+                                        Trustee <span class="trustee-year">Since 2013</span>
+                                    </div>
+                                </div>
+                                <p class="trustee-bio">Professor, IIM Ahmedabad (2001 onwards); associated earlier with
+                                    MDI Gurgaon, ASCI Hyderabad, and IIM Lucknow in faculty positions</p>
+                            </div>
+                        </div>
+
+                        <div class="trustee-full-card shadow-sm">
+                            <div class="trustee-photo-container">
+                                <img src="https://faculty.iimu.ac.in/wp-content/uploads/2025/08/Rajesh-Agrawal-2025_1.jpg" alt="Rajesh Agarwal" class="img-fluid">
+                            </div>
+                            <div class="trustee-info">
+                                <div class="trustee-header">
+                                    <h3 class="trustee-name">Rajesh Agarwal</h3>
+                                    <div class="trustee-meta">
+                                        Trustee <span class="trustee-year">Since 2024</span>
+                                    </div>
+                                </div>
+                                <p class="trustee-bio">Professor of Practice (Chairperson of Executive MBA Programs) at
+                                    IIM Udaipur; former Associate Professor at IRMA and IIM Ahmedabad; former Director
+                                    of Finance at ADG (Finance)</p>
+                            </div>
+                        </div>
+
+                        <div class="trustee-full-card shadow-sm">
+                            <div class="trustee-photo-container">
+                                <img src="https://www.trif.in/india-rural-colloquy-2023/wp-content/uploads/2023/07/Neelima-Khetan.png" alt="Neelima Khetan" class="img-fluid">
+                            </div>
+                            <div class="trustee-info">
+                                <div class="trustee-header">
+                                    <h3 class="trustee-name">Neelima Khetan</h3>
+                                    <div class="trustee-meta">
+                                        Trustee <span class="trustee-year">Since 2024</span>
+                                    </div>
+                                </div>
+                                <p class="trustee-bio">Visiting fellow, Brookings India; former Group CSR head, Vedanta
+                                    Group; VP of CSR at Hindustan Zinc; Director, CSR and Sustainability, Coca-Cola
+                                    India and SouthWest Asia; India Country Director, American India Foundation; CEO,
+                                    Seva Mandir; Acting Director, Institute of Rural Management, Anand (IRMA)</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Governing Board -->
+                <section id="governing-pane" class="mb-5 py-5 bg-light rounded-4 px-3 tab-pane fade" role="tabpanel" aria-labelledby="governing-tab">
+                    <div class="row g-4">
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="./media/images/pankaj jain.jpg" alt="Pankaj Jain" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Pankaj Suman Jain</h4>
+                                    <div class="board-meta">Founder &amp; Chairman <span class="board-year">Since
+                                            2000</span></div>
+                                    <p class="board-bio">BE (IITR), Ph.D. (IIMA), Faculty (IRMA) 1982–94, visiting
+                                        faculty in UK/USA leading universities, international development consultant</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="https://i1.rgstatic.net/ii/profile.image/11431281165494653-1686031231293_Q512/Tushaar-Shah.jpg" alt="Dr. Tushaar Shah" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Dr. Tushaar Shah</h4>
+                                    <div class="board-meta">Board Member <span class="board-year">Since 2000</span>
+                                    </div>
+                                    <p class="board-bio">Ph.D from IIMA, Director-IRMA (1987-97), Senior
+                                        Scientist-Advisor (International Water Management Institute, a UN agency), Board
+                                        member, ICICI Bank, Member of various Central Govt. committees on water
+                                        resources</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="./media/images/arvind sharma.jpg" alt="Arvind Sharma" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Arvind Sharma</h4>
+                                    <div class="board-meta">Board Member <span class="board-year">Since 2002</span>
+                                    </div>
+                                    <p class="board-bio">MBA (IIMA), Chairman (Leo Burnett Asia), acknowledged
+                                        advertising industry leader, credited with UPA win in 2004</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="https://www.pulakprasad.com/wp-content/uploads/2023/02/orjb594rvq7t1tl9m7nonvvv22._SX300_CR0000_-1.jpg" alt="Pulak Prasad" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Pulak Prasad</h4>
+                                    <div class="board-meta">Board Member <span class="board-year">Since 2012</span>
+                                    </div>
+                                    <p class="board-bio">MBA (IIMA), Sr. Consultant at McKinsey, heads an investment
+                                        firm with assets under management of $4 Billion</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="https://ahduni.edu.in/site/assets/files/45417/fhckv657untitled_1png.1400x0.png" alt="Abhay Mangaldas" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Abhay Mangaldas</h4>
+                                    <div class="board-meta">Board Member <span class="board-year">Since 2018</span>
+                                    </div>
+                                    <p class="board-bio">MA., Entrepreneur, heads Shreyas School, which was one of two
+                                        schools set up by Maria Montessori herself</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="https://www.trif.in/india-rural-colloquy-2022/wp-content/uploads/elementor/thumbs/Apoorva-Oza-q7lmxbrybn60ohp023v89t7a4fr4k2crq16mfzidgg.png" alt="Apoorva Oza" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Apoorva Oza</h4>
+                                    <div class="board-meta">Board Member <span class="board-year">Since 2021</span>
+                                    </div>
+                                    <p class="board-bio">Global Lead, Aga Khan Foundation; engineer and MBA from
+                                        Institute of Rural Management, Anand; served as Chief Executive of Aga Khan
+                                        Rural Support Program (AKRSP-I) for more than a decade</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSamjz4zELalULlZBHe0Vs6p6GIQz8Ukw2C4HY0k4s4pNl4k74I" alt="Sridhar Rajagopalan" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Sridhar Rajagopalan</h4>
+                                    <div class="board-meta">Board Member <span class="board-year">Since 2021</span>
+                                    </div>
+                                    <p class="board-bio">Engineer from IIT and MBA from IIM Ahmedabad; Founder Chief
+                                        Executive of Educational Initiatives (EI), the premier educational testing
+                                        organization of India</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaEMVXupMub0VH6C5eOpKD_yCrf1E25y2lnQ&amp;s" alt="Ashutosh Dikshit" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Ashutosh Dikshit</h4>
+                                    <div class="board-meta">Board Member <span class="board-year">Since 2022</span>
+                                    </div>
+                                    <p class="board-bio">Consultant, Deloitte; formerly Indian Revenue Services</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR4pvZNorWtTPwa8BoQ2xhmv9pJHRdMVvB3Xh1q6sbQbod5ErTZ" alt="Neharika Vohra" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Neharika Vohra</h4>
+                                    <div class="board-meta">Board Member <span class="board-year">Since 2023</span>
+                                    </div>
+                                    <p class="board-bio">Professor, Organization Behaviour Area, IIM Ahmedabad</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="board-card shadow-sm">
+                                <div class="board-photo-container">
+                                    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQisi_WmXx3BfXQ6R5B7Xk3XULlFeud77L_LzP0l_hoVAsM82-p" alt="Janat Shah" class="img-fluid">
+                                </div>
+                                <div class="board-info">
+                                    <h4 class="board-name">Janat Shah</h4>
+                                    <div class="board-meta">Board Member <span class="board-year">Since 2023</span>
+                                    </div>
+                                    <p class="board-bio">Founding Director and Professor, IIM Udaipur</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Management TEAM -->
+                <section id="Management-pane" class="mb-5 py-5 bg-light rounded-4 px-3 tab-pane fade" role="tabpanel" aria-labelledby="management-tab">
+                    <div class="container">
+                        <div class="row g-4">
+
+                            <div class="col-lg-6">
+                                <div class="Management-card shadow-sm">
+                                    <div class="Management-photo-container">
+                                        <img src="https://cdn.theorg.com/f32a2b9f-079d-40b5-b3f7-e9ed543c0528_medium.jpg" alt="Chirantan Shah" class="img-fluid">
+                                    </div>
+                                    <div class="Management-info">
+                                        <h4 class="Management-name">Chirantan Shah</h4>
+                                        <div class="Management-meta">Chief Executive Officer</div>
+                                        <p class="Management-qual">B.Tech. (NIT, Nagpur), PGDM (IIM K)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="Management-card shadow-sm">
+                                    <div class="Management-photo-container">
+                                        <img src="" alt="Zalak Desai" class="img-fluid">
+                                        <div class="photo-placeholder">
+                                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor" opacity=".5"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"></path></svg>
+                                            <span>ZD</span>
+                                        </div>
+                                    </div>
+                                    <div class="Management-info">
+                                        <h4 class="Management-name">Zalak Desai</h4>
+                                        <div class="Management-meta">Deputy CEO</div>
+                                        <p class="Management-qual">M. Sc., MEP (IIM A), HHH fellowship (Fulbright-US)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="Management-card shadow-sm">
+                                    <div class="Management-photo-container">
+                                        <img src="" alt="Hetal Raval" class="img-fluid">
+                                        <div class="photo-placeholder">
+                                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor" opacity=".5"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"></path></svg>
+                                            <span>HR</span>
+                                        </div>
+                                    </div>
+                                    <div class="Management-info">
+                                        <h4 class="Management-name">Hetal Raval</h4>
+                                        <div class="Management-meta">Language Mentor</div>
+                                        <p class="Management-qual">M. Com., B. Ed.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="Management-card shadow-sm">
+                                    <div class="Management-photo-container">
+                                        <img src="" alt="Neha Shah" class="img-fluid">
+                                        <div class="photo-placeholder">
+                                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor" opacity=".5"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"></path></svg>
+                                            <span>NS</span>
+                                        </div>
+                                    </div>
+                                    <div class="Management-info">
+                                        <h4 class="Management-name">Neha Shah</h4>
+                                        <div class="Management-meta">Finance – Core team Officer</div>
+                                        <p class="Management-qual">M. Com.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="Management-card shadow-sm">
+                                    <div class="Management-photo-container">
+                                        <img src="" alt="Nisha Goswami" class="img-fluid">
+                                        <div class="photo-placeholder">
+                                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor" opacity=".5"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"></path></svg>
+                                            <span>NG</span>
+                                        </div>
+                                    </div>
+                                    <div class="Management-info">
+                                        <h4 class="Management-name">Nisha Goswami</h4>
+                                        <div class="Management-meta">Accounts – Core team Officer</div>
+                                        <p class="Management-qual">M. Com., B. Ed.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="Management-card shadow-sm">
+                                    <div class="Management-photo-container">
+                                        <img src="" alt="Yogini Parekh" class="img-fluid">
+                                        <div class="photo-placeholder">
+                                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor" opacity=".5"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"></path></svg>
+                                            <span>YP</span>
+                                        </div>
+                                    </div>
+                                    <div class="Management-info">
+                                        <h4 class="Management-name">Yogini Parekh</h4>
+                                        <div class="Management-meta">MIS – Core team Officer</div>
+                                        <p class="Management-qual">M. Com., B. Ed.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="Management-card shadow-sm">
+                                    <div class="Management-photo-container">
+                                        <img src="" alt="Tabassum Shaikh" class="img-fluid">
+                                        <div class="photo-placeholder">
+                                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor" opacity=".5"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"></path></svg>
+                                            <span>TS</span>
+                                        </div>
+                                    </div>
+                                    <div class="Management-info">
+                                        <h4 class="Management-name">Tabassum Shaikh</h4>
+                                        <div class="Management-meta">MIS – Senior Supervisor</div>
+                                        <p class="Management-qual">B. A.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="Management-card shadow-sm">
+                                    <div class="Management-photo-container">
+                                        <img src="" alt="Kareena Chavda" class="img-fluid">
+                                        <div class="photo-placeholder">
+                                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor" opacity=".5"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"></path></svg>
+                                            <span>KC</span>
+                                        </div>
+                                    </div>
+                                    <div class="Management-info">
+                                        <h4 class="Management-name">Kareena Chavda</h4>
+                                        <div class="Management-meta">Accounts Supervisor</div>
+                                        <p class="Management-qual">B. Com., M.B. A.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="Management-card shadow-sm">
+                                    <div class="Management-photo-container">
+                                        <img src="" alt="Padma Parmar" class="img-fluid">
+                                        <div class="photo-placeholder">
+                                            <svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor" opacity=".5"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"></path></svg>
+                                            <span>PP</span>
+                                        </div>
+                                    </div>
+                                    <div class="Management-info">
+                                        <h4 class="Management-name">Padma Parmar</h4>
+                                        <div class="Management-meta">Stock – Materials Supervisor</div>
+                                        <p class="Management-qual">B. A.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GUJARAT STATE -->
+                <section id="gujarat-pane" class="mb-5 py-5 tab-pane fade" role="tabpanel" aria-labelledby="gujarat-tab">
+                <div class="state-layout">
+                    <div class="program-tabs-sidebar">
+                        <button class="prog-tab-btn active" onclick="switchProgTab(this, 'gujarat-pane-elementary-program')">Elementary Program</button>
+                        <button class="prog-tab-btn" onclick="switchProgTab(this, 'gujarat-pane-affordable-private-schools')">Affordable Private Schools</button>
+                        <button class="prog-tab-btn" onclick="switchProgTab(this, 'gujarat-pane-jamnabai-partnership')">Jamnabai Partnership</button>
+                    </div>
+                    <div class="program-content-area">
+                        <div class="prog-pane active" id="gujarat-pane-elementary-program">
+
+
+                    <!-- Elementary Program -->
+                    <div class="group-title">Elementary Program</div>
+                    <div class="row g-4 mb-5">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="team-card border-primary">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SP</span></div>
+                                <h5 class="team-name">Sejal Parikh</h5>
+                                <span class="team-role">Team Leader</span>
+                                <p class="small text-muted mb-0">D. Pharm., M. Sc., B. Ed.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Design Management Team</h6>
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">VS</span></div><span class="role">Core team Officer</span>
+                                <div class="name">Vaishali Shah</div>
+                                <div class="qual">B. E. (Mechanical)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">JA</span></div><span class="role">Core team Officer</span>
+                                <div class="name">Jayanti A Parmar</div>
+                                <div class="qual">M. A., B. Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SP</span></div><span class="role">Core Team</span>
+                                <div class="name">Sharmistha Parmar</div>
+                                <div class="qual">B. Com., B. Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DP</span></div><span class="role">Core Team</span>
+                                <div class="name">Divyarajsinh Parmar</div>
+                                <div class="qual">M.Sc.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MS</span></div><span class="role">Core Team</span>
+                                <div class="name">Monalika Solanki</div>
+                                <div class="qual">M.com.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MD</span></div><span class="role">Core Team</span>
+                                <div class="name">Megha Desai</div>
+                                <div class="qual">B.E.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SR</span></div><span class="role">Core Team</span>
+                                <div class="name">Shirinbanu Rangrej</div>
+                                <div class="qual">M.A., B.Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NS</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Nayana Sooryavanshi</div>
+                                <div class="qual">M.A. B.Ed.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Design Team (Surat)</h6>
+                    <div class="row g-4 mb-5">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PC</span></div><span class="role">Core team Maths</span>
+                                <div class="name">Pravina Chaudhari</div>
+                                <div class="qual">B.E Computer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Field
+                        Supervisors (Ahmedabad)</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NM</span></div>
+                                <div class="name">Neeru Makwana</div>
+                                <div class="qual">S.Y. B.A.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RC</span></div>
+                                <div class="name">Rekha Chavda</div>
+                                <div class="qual">M.A. B.Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NP</span></div>
+                                <div class="name">Nirmala Parmar</div>
+                                <div class="qual">H.S.C PASS</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SS</span></div>
+                                <div class="name">Sangita Solanki</div>
+                                <div class="qual">B.A.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">GM</span></div>
+                                <div class="name">Geeta Makwana</div>
+                                <div class="qual">H.S.C PASS</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">FC</span></div>
+                                <div class="name">Falguni Chavda</div>
+                                <div class="qual">B.Sc</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SA</span></div>
+                                <div class="name">Samim Ajmeri</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PS</span></div>
+                                <div class="name">Pragna Shete</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NP</span></div>
+                                <div class="name">Nanda Parmar</div>
+                                <div class="qual">B.A.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DM</span></div>
+                                <div class="name">Deena Makwana</div>
+                                <div class="qual">M.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PP</span></div>
+                                <div class="name">Pratiksha Parmar</div>
+                                <div class="qual">B.A.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">BP</span></div>
+                                <div class="name">Bharti Parmar</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KS</span></div>
+                                <div class="name">Kamini Solanki</div>
+                                <div class="qual">B.Com</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">FS</span></div>
+                                <div class="name">Farhad Saiyad</div>
+                                <div class="qual">12th</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">JP</span></div>
+                                <div class="name">Julekha Pathan</div>
+                                <div class="qual">12th</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SS</span></div>
+                                <div class="name">Shahenaj Shaikh</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">JP</span></div>
+                                <div class="name">Jayshree Parmar</div>
+                                <div class="qual">B.A B.Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">JK</span></div>
+                                <div class="name">Jayshreeben Kapadia</div>
+                                <div class="qual">12th</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">FS</span></div>
+                                <div class="name">Farjana Shaikh</div>
+                                <div class="qual">12th</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RS</span></div>
+                                <div class="name">Rachna Shah</div>
+                                <div class="qual">S.S.C. P.T.C.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">FJ</span></div>
+                                <div class="name">Fatma Julaya</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Field
+                        Supervisors (Surat)</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RS</span></div>
+                                <div class="name">Ruksanaben Shaikh</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PK</span></div>
+                                <div class="name">Priyankaben Kanthariya</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">HA</span></div>
+                                <div class="name">Heena Ansari</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RR</span></div>
+                                <div class="name">Ritaben Rathod</div>
+                                <div class="qual">12 Pass</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">HM</span></div>
+                                <div class="name">Hamida Multani</div>
+                                <div class="qual">B.A (Ele, MS)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SP</span></div>
+                                <div class="name">Shabnam Pathan</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DM</span></div>
+                                <div class="name">Dipika Mistry</div>
+                                <div class="qual">B.A B.ed</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PP</span></div>
+                                <div class="name">Pooja Pandey</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Middle School Program -->
+                    <div class="group-title">Middle School Program</div>
+                    <div class="row g-4 mb-5">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="team-card border-primary">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MB</span></div>
+                                <h5 class="team-name">Meghna Bhatt</h5>
+                                <span class="team-role">Team Leader</span>
+                                <p class="small text-muted mb-0">M. Sc., B.ed., Hubert Humphrey fellow</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Design Management Team</h6>
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PS</span></div><span class="role">Core team Officer</span>
+                                <div class="name">Prachi Shah</div>
+                                <div class="qual">B.E.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KZ</span></div><span class="role">Core team Officer</span>
+                                <div class="name">Kausha Zalavadia</div>
+                                <div class="qual">B.E.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DP</span></div><span class="role">Core team Officer</span>
+                                <div class="name">Dipti Pandya</div>
+                                <div class="qual">MA</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MM</span></div><span class="role">Core team Officer</span>
+                                <div class="name">Mohan Makwana</div>
+                                <div class="qual">M. A., M. Phil., B. Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">HS</span></div><span class="role">Core team Officer</span>
+                                <div class="name">Hemali Shah</div>
+                                <div class="qual">MSC</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NS</span></div><span class="role">Core team Officer</span>
+                                <div class="name">Neha Solanki</div>
+                                <div class="qual">MA</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AC</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Aksha Chauhan</div>
+                                <div class="qual">M.Sc.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DK</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Deep Kapadia</div>
+                                <div class="qual">M.Sc.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DP</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Dharmesh Patel</div>
+                                <div class="qual">M.A.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Field Supervisors (Middle School)</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">GP</span></div>
+                                <div class="name">Geeta Pasi</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">HR</span></div>
+                                <div class="name">Hemlata Rathod</div>
+                                <div class="qual">M.A B.Ed</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PP</span></div>
+                                <div class="name">Pragna Parmar</div>
+                                <div class="qual">B.Com</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RD</span></div>
+                                <div class="name">Rachna Dave</div>
+                                <div class="qual">S.Y. B.com.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PS</span></div>
+                                <div class="name">Parmar Shilpa</div>
+                                <div class="qual">M.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PD</span></div>
+                                <div class="name">Parmar Dipika</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SH</span></div>
+                                <div class="name">Shimali Harshidaben</div>
+                                <div class="qual">M.R S.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">BB</span></div>
+                                <div class="name">Bhavna Bhatt</div>
+                                <div class="qual">B.Sc. (Chem)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Moved Senior Field Team here -->
+                    <div class="mt-5 pt-4">
+                        <div class="text-center mb-5">
+                            <h4 class="fw-bold">Field Operations Senior Team</h4>
+                            <p class="text-muted">Leading implementation across all programs</p>
+                        </div>
+
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">HD</span></div><span class="role">Field Officer</span>
+                                    <div class="name">Hargovan Desai</div>
+                                    <div class="qual">M.A., B.P.Ed. (Ele, MS)</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">VB</span></div><span class="role">Senior Supervisor</span>
+                                    <div class="name">Vijaya Bhitora</div>
+                                    <div class="qual">B. A., B. Ed. (Ele, MS)</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">FZ</span></div><span class="role">Senior Supervisor</span>
+                                    <div class="name">Firdoshjahan Zulaya</div>
+                                    <div class="qual">B. A., B. Ed. (Ele, MS)</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RM</span></div><span class="role">Senior Supervisor</span>
+                                    <div class="name">Rizwana Mapara</div>
+                                    <div class="qual">B.Com (Ele, MS)</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">TP</span></div><span class="role">Senior Supervisor</span>
+                                    <div class="name">Taslim Patel</div>
+                                    <div class="qual">B.A. (ele MS)</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NP</span></div><span class="role">Senior Supervisor (Surat)</span>
+                                    <div class="name">Neha Parmar</div>
+                                    <div class="qual">B.A (Ele, MS)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Moved Special Programs here -->
+                    <div class="mt-5 pt-4">
+                        <div class="group-title">
+                        </div>
+                        <div class="prog-pane" id="gujarat-pane-affordable-private-schools">
+Affordable Private Schools Program</div>
+                        <div class="row g-4 mb-4">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SM</span></div><span class="role">Team Leader (Academics)</span>
+                                    <div class="name">Sonal Mody</div>
+                                    <div class="qual">B. E. (Civil)</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MJ</span></div><span class="role">Team Leader (School Operations)</span>
+                                    <div class="name">Maitree Joshi</div>
+                                    <div class="qual">M. A., B. Ed., Diploma in Linguistics</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                            Design Management Team</h6>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 mb-4">
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NP</span></div><span class="role">Core team Officer</span>
+                                    <div class="name">Niharika Parmar</div>
+                                    <div class="qual">B. Com., L.L.B., B. Ed.</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SP</span></div><span class="role">Core team Officer</span>
+                                    <div class="name">Sumaiyaanjum Pathan</div>
+                                    <div class="qual">B. Com., B. Ed.</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KD</span></div><span class="role">Core team Officer</span>
+                                    <div class="name">Kavyashri Dave</div>
+                                    <div class="qual">B,E.</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">ND</span></div><span class="role">Core team Officer</span>
+                                    <div class="name">Nipam Dhvanil Pandit</div>
+                                    <div class="qual">M.Sc.</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">HS</span></div><span class="role">Core team Officer</span>
+                                    <div class="name">Hiral Solanki</div>
+                                    <div class="qual">BE</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">UP</span></div><span class="role">Senior Supervisor</span>
+                                    <div class="name">Uzmazabi Pathan</div>
+                                    <div class="qual">M.Sc.</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SS</span></div><span class="role">Senior Supervisor</span>
+                                    <div class="name">Simranbanu Sipai</div>
+                                    <div class="qual">M.A.</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">IS</span></div><span class="role">Senior Supervisor</span>
+                                    <div class="name">Imroza Saiyad</div>
+                                    <div class="qual">M.Sc.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                            Relationship &amp; Support</h6>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 mb-5">
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PC</span></div><span class="role">Relationship Manager</span>
+                                    <div class="name">Pragna Chavda</div>
+                                    <div class="qual">B. A., B. Ed.</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">FP</span></div><span class="role">Senior Supervisor</span>
+                                    <div class="name">Falguni Parmar</div>
+                                    <div class="qual">B.A</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MS</span></div><span class="role">Supervisor</span>
+                                    <div class="name">Meenaben Solanki</div>
+                                    <div class="qual">B. A.</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SV</span></div><span class="role">Supervisor</span>
+                                    <div class="name">Singal Vandanaben</div>
+                                    <div class="qual">B.A. B.Ed.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group-title">
+                        </div>
+                        <div class="prog-pane" id="gujarat-pane-jamnabai-partnership">
+Jamnabai GyanShala Partnership
+                        </div>
+                        <div class="row g-4 mb-5">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PG</span></div><span class="role">Senior Supervisor</span>
+                                    <div class="name">Paresha Goswami</div>
+                                    <div class="qual">B.Sc.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                &lt;
+                        </div>
+                    </div>
+                </div>
+</section>
+
+                <!-- BIHAR STATE -->
+                <section id="bihar-pane" class="mb-5 py-5 tab-pane fade" role="tabpanel" aria-labelledby="bihar-tab">
+                <div class="state-layout">
+                    <div class="program-tabs-sidebar">
+                        <button class="prog-tab-btn active" onclick="switchProgTab(this, 'bihar-pane-patna-team')">Patna Team</button>
+                    </div>
+                    <div class="program-content-area">
+                        <div class="prog-pane active" id="bihar-pane-patna-team">
+
+                    <div class="group-title">Patna Team</div>
+                    <div class="row g-4 mb-5">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="team-card border-primary">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SS</span></div>
+                                <h5 class="team-name">Shweta Shrivastava</h5>
+                                <span class="team-role">Team Leader</span>
+                                <p class="small text-muted mb-0">M.Sc (Chem.), DCA</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="team-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AK</span></div>
+                                <h5 class="team-name">Anuj Kumar</h5>
+                                <span class="team-role">Team Leader</span>
+                                <p class="small text-muted mb-0">M.Sc (Chem.), B.Ed, SIMAP, PGD-ISM, DCA, Volag-MAP
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Design Management Team (Bihar)</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AA</span></div><span class="role">Core Team (Math)</span>
+                                <div class="name">Aditya Anand</div>
+                                <div class="qual">B.E (Com. Sci.)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SR</span></div><span class="role">Core Team (Eng.)</span>
+                                <div class="name">Shashi Ranjanam</div>
+                                <div class="qual">M.A, PhD (Pursuing)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KM</span></div><span class="role">Core Team (Eng.)</span>
+                                <div class="name">Kumar Mayank</div>
+                                <div class="qual">M.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DK</span></div><span class="role">Core Team (Math)</span>
+                                <div class="name">Dheeraj Kumar</div>
+                                <div class="qual">M.Sc, B.Ed, B.Sc(IT)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AK</span></div><span class="role">Core Team (Math)</span>
+                                <div class="name">Anjali Kumari</div>
+                                <div class="qual">M.Sc (Chem.)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PK</span></div><span class="role">Core Team (Hindi)</span>
+                                <div class="name">Pooja Kumari</div>
+                                <div class="qual">B.A ,D.El.Ed</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div><span class="role">Core Team (Project)</span>
+                                <div class="name">Rupesh Kumar Sinha</div>
+                                <div class="qual">M.Sc (Elec.), B.Ed</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PK</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Parbind Kumar Singh</div>
+                                <div class="qual">B.A, B.Ed</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">BK</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Bullu Kumari</div>
+                                <div class="qual">M.A, B.Ed</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SK</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Shashi Kumar</div>
+                                <div class="qual">M.Sc (Phy.)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SS</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">S.M. Sharique</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MB</span></div><span class="role">Supervisor (Stock)</span>
+                                <div class="name">Mani Bhushan Vidyarthi</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Field
+                        Operations Team (Patna)</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div><span class="role">Core Field Officer</span>
+                                <div class="name">Rinku Kumar</div>
+                                <div class="qual">B.Com</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KJ</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Khurshid Jahan</div>
+                                <div class="qual">M.B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Raj Kumar Gupta</div>
+                                <div class="qual">M. Com</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DK</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Deepak Kr. Mishra</div>
+                                <div class="qual">M.A.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AK</span></div>
+                                <div class="name">Ajay Kumar</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KK</span></div>
+                                <div class="name">Kumod Kumar</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MS</span></div>
+                                <div class="name">Manju Shree</div>
+                                <div class="qual">Inter</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SK</span></div>
+                                <div class="name">Sunita Kumari</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div>
+                                <div class="name">Rajesh Kumar</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SD</span></div>
+                                <div class="name">Sunita Devi II</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div>
+                                <div class="name">Ruby Kumari</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MA</span></div>
+                                <div class="name">Md. Amjad Ali</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SK</span></div>
+                                <div class="name">Shobha Kumari</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div>
+                                <div class="name">Renu Kumari</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SD</span></div>
+                                <div class="name">Sunita Devi III</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AK</span></div>
+                                <div class="name">Azad Kumar</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div>
+                                <div class="name">Rimjhim Kumari</div>
+                                <div class="qual">M.Com</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AK</span></div>
+                                <div class="name">Anjali Kumari</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SS</span></div>
+                                <div class="name">Sujata Singh</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">S</span></div>
+                                <div class="name">Shahnaz</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MK</span></div>
+                                <div class="name">Mukesh Kumar</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div>
+                                <div class="name">Rupam Kumari</div>
+                                <div class="qual">B.Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AK</span></div>
+                                <div class="name">Ashwini Kumari</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">BK</span></div>
+                                <div class="name">Braj Kishor</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SK</span></div>
+                                <div class="name">Sachin Kumar</div>
+                                <div class="qual">B.Sc</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DK</span></div>
+                                <div class="name">Deepak Kumar</div>
+                                <div class="qual">B.Sc</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RD</span></div>
+                                <div class="name">Romi Devi</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">BK</span></div>
+                                <div class="name">Babita Kumari</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AK</span></div>
+                                <div class="name">Arun Kumar</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SP</span></div>
+                                <div class="name">Saniya Perween</div>
+                                <div class="qual">M.A.(II Yr.)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group-title">Bihar Sharif Team</div>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">JK</span></div><span class="role">Core Team (Field)</span>
+                                <div class="name">Jitendra Kumar</div>
+                                <div class="qual">B. Tech (I.T.)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SK</span></div>
+                                <div class="name">Santosh Kumar</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MS</span></div>
+                                <div class="name">Md. Saddam Hussain</div>
+                                <div class="qual">B. Com</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NB</span></div>
+                                <div class="name">Nigar Bashiri</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AK</span></div>
+                                <div class="name">Ankit Kumar</div>
+                                <div class="qual">B.Sc.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MS</span></div>
+                                <div class="name">Mohammad Sayeed Akhter</div>
+                                <div class="qual">B.Sc.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">DM</span></div>
+                                <div class="name">Darakshan Mustafa</div>
+                                <div class="qual">BCA</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div>
+                                <div class="name">Rakesh Kumar</div>
+                                <div class="qual">B.Sc.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group-title">Muzaffarpur Team</div>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KM</span></div>
+                                <div class="name">Kirti Murary</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SK</span></div>
+                                <div class="name">Sanjay Kumar Sharan</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NT</span></div>
+                                <div class="name">Niraj Tiwary</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SK</span></div>
+                                <div class="name">Sunita Kumari</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">GA</span></div>
+                                <div class="name">Gulshan Ara</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SN</span></div>
+                                <div class="name">Simmi Naaz</div>
+                                <div class="qual">B.Com</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PK</span></div>
+                                <div class="name">Prince Kumar</div>
+                                <div class="qual">B.Com</div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div></div></section>
+
+                <!-- UTTAR PRADESH
+                        </div>
+                    </div>
+                </div>
+</section>
+
+                <!-- UTTAR PRADESH STATE -->
+                <section id="up-pane" class="mb-5 py-5 tab-pane fade" role="tabpanel" aria-labelledby="up-tab">
+                <div class="state-layout">
+                    <div class="program-tabs-sidebar">
+                        <button class="prog-tab-btn active" onclick="switchProgTab(this, 'up-pane-lucknow-team')">Lucknow Team</button>
+                        <button class="prog-tab-btn" onclick="switchProgTab(this, 'up-pane-farrukhabad-team')">Farrukhabad Team</button>
+                        <button class="prog-tab-btn" onclick="switchProgTab(this, 'up-pane-up-govt.-program-saras')">UP Govt. Program (SARAS)</button>
+                    </div>
+                    <div class="program-content-area">
+                        <div class="prog-pane active" id="up-pane-lucknow-team">
+
+                    <div class="group-title">Lucknow Team</div>
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Design Management Team</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 mb-4">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SV</span></div><span class="role">Coordinator</span>
+                                <div class="name">Shivani Verma</div>
+                                <div class="qual">B. Tech (EC)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">VK</span></div><span class="role">Core Team English</span>
+                                <div class="name">Vivek Kumar</div>
+                                <div class="qual">B. Tech (IT)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PK</span></div><span class="role">Core Team Hindi</span>
+                                <div class="name">Pradeep Kumar</div>
+                                <div class="qual">M.A , M.Phil</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SN</span></div><span class="role">Core Team Hindi</span>
+                                <div class="name">Suneeta Nishad</div>
+                                <div class="qual">M.A., B. Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KV</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Kiran Vishwkarma</div>
+                                <div class="qual">M. A., M. Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">TC</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Toyaj Chitranshi</div>
+                                <div class="qual">B. Tech (ME)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Field
+                        Operations (Lucknow)</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RG</span></div><span class="role">Senior Supervisor</span>
+                                <div class="name">Rajkumari Gupta</div>
+                                <div class="qual">M.A, MSW</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">TS</span></div><span class="role">Supervisor</span>
+                                <div class="name">Tarun Singh</div>
+                                <div class="qual">MSW</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SM</span></div><span class="role">Supervisor</span>
+                                <div class="name">Sunaina Mishra</div>
+                                <div class="qual">M.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SS</span></div><span class="role">Supervisor</span>
+                                <div class="name">Suman Singh</div>
+                                <div class="qual">MSW</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MM</span></div><span class="role">Supervisor</span>
+                                <div class="name">Meera Mishra</div>
+                                <div class="qual">M.A, L.L.B</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">M</span></div><span class="role">Supervisor</span>
+                                <div class="name">Monika</div>
+                                <div class="qual">M.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">S</span></div><span class="role">Supervisor</span>
+                                <div class="name">Sanjeevani</div>
+                                <div class="qual">B.A</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MS</span></div><span class="role">Supervisor</span>
+                                <div class="name">Meenu Shukla</div>
+                                <div class="qual">M.A</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group-title">
+                        </div>
+                        <div class="prog-pane" id="up-pane-farrukhabad-team">
+Farrukhabad Team</div>
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Design Management Team</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 mb-4">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AT</span></div><span class="role">Coordination</span>
+                                <div class="name">Abhishek Tiwari</div>
+                                <div class="qual">B.Sc, M.C.A.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">MK</span></div><span class="role">Core Team Officer</span>
+                                <div class="name">Md.Asib Khan Pathan</div>
+                                <div class="qual">M. Sc.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AS</span></div><span class="role">Core team member</span>
+                                <div class="name">Abhishek Singh</div>
+                                <div class="qual">B.techD.EL.ED</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">LY</span></div><span class="role">Core team member</span>
+                                <div class="name">Lalu Yadav</div>
+                                <div class="qual">B. Tech (I.T.)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SM</span></div><span class="role">Senior supervisor</span>
+                                <div class="name">Shadab Mohd. Khan</div>
+                                <div class="qual">M.Sc.(Math)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Field
+                        Operations (Farrukhabad)</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">GM</span></div><span class="role">Senior supervisor</span>
+                                <div class="name">Gaurav Mishra</div>
+                                <div class="qual">B.Sc, B.Ed</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PP</span></div>
+                                <div class="name">Priti Prabha</div>
+                                <div class="qual">B.A. ,LLB</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">G</span></div>
+                                <div class="name">Gazala</div>
+                                <div class="qual">B.A.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AM</span></div>
+                                <div class="name">Ashish Maurya</div>
+                                <div class="qual">B.A. M.B.A.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">PG</span></div>
+                                <div class="name">Pankaj Gautam</div>
+                                <div class="qual">BSc, B. Ed.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">N</span></div>
+                                <div class="name">Nisha</div>
+                                <div class="qual">B.A.</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">HK</span></div>
+                                <div class="name">Huma Khan</div>
+                                <div class="qual">M.A. (ENGLISH)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">A</span></div>
+                                <div class="name">Anurag</div>
+                                <div class="qual">M.A.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group-title">
+                        </div>
+                        <div class="prog-pane" id="up-pane-up-govt.-program-saras">
+UP Government Program (SARAS)</div>
+                    <div class="row g-4 mb-4">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SY</span></div><span class="role">Coordination</span>
+                                <div class="name">Shishir Yadav</div>
+                                <div class="qual">B.E., M.A., B. Ed. (Bahraich, Chandauli)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
+                        Field
+                        Operations (Bahraich &amp; Chandauli)</h6>
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2 mb-5">
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KC</span></div><span class="role">School Monitor</span>
+                                <div class="name">Karam Chand Yadav</div>
+                                <div class="qual">B.A (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">YK</span></div><span class="role">School Monitor</span>
+                                <div class="name">Yogesh Kumar Mishra</div>
+                                <div class="qual">B.Sc (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RK</span></div><span class="role">School Monitor</span>
+                                <div class="name">Rahul Kumar shukla</div>
+                                <div class="qual">B.A, M.A (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">NK</span></div><span class="role">School Monitor</span>
+                                <div class="name">Neeraj Kumar Pathak</div>
+                                <div class="qual">B.Sc, M.Sc (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AA</span></div><span class="role">School Monitor</span>
+                                <div class="name">Ali abbas Siddiqui</div>
+                                <div class="qual">B.A, B.Ed (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">HR</span></div><span class="role">School Monitor</span>
+                                <div class="name">Hirday Ram Yadav</div>
+                                <div class="qual">B.A,M.A, B.Ed (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">KJ</span></div><span class="role">School Monitor</span>
+                                <div class="name">Kishan Jaisawal</div>
+                                <div class="qual">B.A (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">CT</span></div><span class="role">School Monitor</span>
+                                <div class="name">Chandan Tripathi</div>
+                                <div class="qual">B.SC, D.El.Ed (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">VB</span></div><span class="role">School Monitor</span>
+                                <div class="name">Veer Bahadur</div>
+                                <div class="qual">B.A, BTC (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AM</span></div><span class="role">School Monitor</span>
+                                <div class="name">Anand Mohan Tiwari</div>
+                                <div class="qual">B.A, B.Ed (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AK</span></div><span class="role">School Monitor</span>
+                                <div class="name">Arvind Kumar Yadav</div>
+                                <div class="qual">B.A, ITI (Bahraich)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">JD</span></div><span class="role">School Monitor</span>
+                                <div class="name">Jaiprakash Dixit</div>
+                                <div class="qual">M.A, B.Ed (Bahraich)</div>
+                            </div>
+                        </div>
+                        <!-- Chandauli -->
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SK</span></div><span class="role">School Monitor</span>
+                                <div class="name">Sunil Kumar Kanoujiya</div>
+                                <div class="qual">B.Com, M.A (Chandauli)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RY</span></div><span class="role">School Monitor</span>
+                                <div class="name">Rajiv Yadav</div>
+                                <div class="qual">B.A, M.A (Chandauli)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RS</span></div><span class="role">School Monitor</span>
+                                <div class="name">Rakesh Singh</div>
+                                <div class="qual">B.A (Chandauli)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">VB</span></div><span class="role">School Monitor</span>
+                                <div class="name">Vikas Babu</div>
+                                <div class="qual">B. Tech, BTC (Chandauli)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">RP</span></div><span class="role">School Monitor</span>
+                                <div class="name">Raghavendra Pratap Singh</div>
+                                <div class="qual">B.A (Chandauli)</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">SS</span></div><span class="role">School Monitor</span>
+                                <div class="name">Sanjeev Sharma</div>
+                                <div class="qual">B.A, B.Ed (Chandauli)</div>
+                            </div>
+                        </div>
+                    </div>
+                &lt;
+                        </div>
+                    </div>
+                </div>
+</section>
+
+                <!-- HARYANA STATE -->
+                <section id="haryana-pane" class="mb-5 py-5 tab-pane fade" role="tabpanel" aria-labelledby="haryana-tab">
+                <div class="state-layout">
+                    <div class="program-tabs-sidebar">
+                        <button class="prog-tab-btn active" onclick="switchProgTab(this, 'haryana-pane-haryana-team')">Haryana Team</button>
+                    </div>
+                    <div class="program-content-area">
+                        <div class="prog-pane active" id="haryana-pane-haryana-team">
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-lg-4 col-md-6 mx-auto">
+                            <div class="compact-card">
+                                <div class="card-photo"><svg class="ph-icon" width="44" height="44" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"></path></svg><span class="ph-initials">AP</span></div><span class="role">Coordination</span>
+                                <div class="name">Ankit Pathak</div>
+                                <div class="qual">B.Tech, PGDMIA</div>
+                            </div>
+                        </div>
+                    </div>
+                &lt;
+                        </div>
+                    </div>
+                </div>
+</section>
+
+                <!-- Global Impact Note -->
+                <section class="mb-5 py-5 text-center">
+                    <div class="card bg-primary text-white p-5 rounded-4 shadow-sm" style="max-width: 100%;">
+                        <h3 class="fw-bold mb-3">And over 1,200 more...</h3>
+                        <p class="lead mb-0">
+                            Our work is powered by a massive dedicated team, including teachers, field supervisors,
+                            and managers across multiple states. Together, we are bridging the literacy gap for
+                            underprivileged children across India.
+                        </p>
+                        <div class="mt-4">
+                            <a href="about_us.html" class="btn btn-light rounded-pill px-4 fw-bold">Learn Our
+                                Story</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-load"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        // Vertical program tab switching
+        function switchProgTab(btn, paneId) {
+            // Deactivate all sibling buttons
+            const sidebar = btn.closest('.program-tabs-sidebar');
+            sidebar.querySelectorAll('.prog-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            // Deactivate all panes in this state
+            const contentArea = sidebar.nextElementSibling;
+            contentArea.querySelectorAll('.prog-pane').forEach(p => p.classList.remove('active'));
+            const target = contentArea.querySelector('#' + paneId);
+            if (target) target.classList.add('active');
+        }
+
+        const tabList = document.getElementById('teamTabs');
+        const tabs = tabList.querySelectorAll('.nav-link');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('shown.bs.tab', function (event) {
+                scrollToActiveTab(event.target);
+            });
+        });
+
+        function scrollToActiveTab(activeTab) {
+            const tabRect = activeTab.getBoundingClientRect();
+            const listRect = tabList.getBoundingClientRect();
+
+            // Calculate the scroll position to center the tab
+            const scrollOffset = (tabRect.left - listRect.left) + (tabRect.width / 2) - (listRect.width / 2);
+
+            tabList.scrollTo({
+                left: tabList.scrollLeft + scrollOffset,
+                behavior: 'smooth'
+            });
+        }
+
+        // Optional: Scroll to the active tab on initial page load
+        window.addEventListener('load', () => {
+            const active = tabList.querySelector('.nav-link.active');
+            if (active) scrollToActiveTab(active);
+        });
+    </script>
+
+
+</body></html>
